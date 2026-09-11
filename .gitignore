@@ -1,0 +1,19 @@
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+
+# SQLite database + WAL files (runtime state, seeded on boot)
+server/data/
+*.sqlite
+*.sqlite-*
+
+# Logs / env
+*.log
+.env
+.env.local
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
