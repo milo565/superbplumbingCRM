@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-navy: #091825;
+  --color-navy-2: #102938;
+  --color-blue: #178ff0;
+  --color-orange: #ff612f;
+  --color-cream: #f5f1eb;
+  --color-pale: #d9eaf4;
+  --color-pale-2: #e5eff3;
+  --color-ink: #111e2c;
+  --font-heading: var(--font-barlow);
+  --font-sans: var(--font-dm);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f5f1eb;
+  color: #111e2c;
+  font-family: var(--font-dm), "DM Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+.font-heading {
+  font-family: var(--font-barlow), "Barlow Condensed", sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: #178ff0;
+  color: #fff;
+}
+
+input[type="date"],
+input[type="datetime-local"] {
+  min-height: 44px;
+}
