@@ -18,6 +18,9 @@ import { calcTotals } from "../lib/money";
 
 const prisma = new PrismaClient();
 
+// Demo-only Melbourne data and a shared password. Do not run against a
+// live customer database without changing every login first. See DEPLOY.md.
+
 const PASSWORD = "SuperbFlow1!";
 
 function at(base: Date, hour: number, minute = 0) {

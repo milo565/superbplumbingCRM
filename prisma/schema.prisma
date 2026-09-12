@@ -3,12 +3,11 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-// Roles map 1:1 to SuperbFlow team functions.
-// SQLite stores enums as TEXT; PostgreSQL can use native enums unchanged.
+// Native Postgres enums. Local and Vercel use the same schema.
 enum Role {
   OWNER
   OFFICE_ADMIN

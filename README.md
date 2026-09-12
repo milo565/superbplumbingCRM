@@ -9,30 +9,32 @@ The point of the board is simple: who needs a hand today, what was done last vis
 ## Stack
 
 - Next.js 15 (App Router) + TypeScript + Tailwind CSS
-- Prisma + SQLite for local demo (schema is PostgreSQL-ready)
+- Prisma + PostgreSQL (Docker locally, Neon on Vercel)
 - NextAuth credentials login with role-based access
 - Barlow Condensed (headings) + DM Sans (body, nav, forms)
 
-## Quick start
+## Go live
+
+Production is **Vercel + Neon Postgres**. Follow **[DEPLOY.md](./DEPLOY.md)** — Neon project, Vercel import, env vars, `prisma migrate deploy`, domain, then install the PWA over HTTPS.
+
+## Quick start (local)
+
+You need Docker (or any Postgres) and Node 20+.
 
 ```bash
+cp .env.example .env
 npm install
-npx prisma migrate dev --name init
+docker compose up -d
+npx prisma migrate dev
 npm run db:seed
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Copy `.env.example` to `.env` if you need to change the database URL or `NEXTAUTH_SECRET`.
+`.env.example` defaults to `postgresql://superbflow:superbflow@localhost:5432/superbflow` from `docker-compose.yml`. You can also point `DATABASE_URL` at a free Neon branch for local work.
 
-```
-DATABASE_URL="file:./dev.db"
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="change-me-in-production-use-a-long-random-string"
-```
-
-For PostgreSQL later, switch `provider` in `prisma/schema.prisma` to `postgresql` and point `DATABASE_URL` at your server. Models and enums stay the same.
+No SQLite in this tree — one Prisma schema, same as production.
 
 ## Demo logins
 
@@ -114,5 +116,7 @@ Theme colour `#091825`, background `#F5F1EB`, display `standalone`. Icons live i
 | `npm run dev` | Next.js dev server |
 | `npm run build` | Production build |
 | `npm run db:seed` | Reload Melbourne demo data |
-| `npm run db:reset` | Recreate SQLite database and seed |
+| `npm run db:up` | Start local Docker Postgres |
+| `npm run db:deploy` | `prisma migrate deploy` (production / CI) |
+| `npm run db:reset` | Recreate the database and seed |
 | `npx prisma studio` | Browse data |
