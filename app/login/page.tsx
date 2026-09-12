@@ -115,6 +115,10 @@ export default function LoginPage() {
             </button>
           </form>
 
+          <p className="mt-6 text-sm text-[#3c4d5a]">
+            After sign-in, install SuperbFlow from the banner or Settings — iPhone: Share → Add to Home
+            Screen. Android: Chrome menu → Install app.
+          </p>
           <div className="mt-8 rounded-2xl bg-pale-2 p-4 text-sm">
             <p className="font-semibold text-navy mb-2">Demo logins — password `SuperbFlow1!`</p>
             <ul className="space-y-1.5">

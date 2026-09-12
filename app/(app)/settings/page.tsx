@@ -26,6 +26,34 @@ export default async function SettingsPage() {
         description="Company details, consent, templates and integration stubs."
       />
       <div className="grid lg:grid-cols-2 gap-4">
+        <Card id="install" className="lg:col-span-2 bg-navy text-white border-0">
+          <h2 className="font-heading text-2xl uppercase mb-2">Install SuperbFlow</h2>
+          <p className="text-sm text-[#c5d6e2]">
+            Put the CRM on the home screen so plumbers can open jobs, maps and follow-ups like an app.
+            Pages already visited (dashboard, jobs) can open from the cached shell if the van drops signal.
+            Full offline sync can come later — sign-in still needs a connection.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-4 mt-4 text-sm">
+            <div className="rounded-xl bg-white/8 p-4">
+              <p className="font-semibold">iPhone / iPad</p>
+              <ol className="list-decimal pl-5 mt-2 space-y-1 text-[#c5d6e2]">
+                <li>Open SuperbFlow in Safari</li>
+                <li>Tap Share</li>
+                <li>Tap Add to Home Screen</li>
+                <li>Tap Add — launch fullscreen from the icon</li>
+              </ol>
+            </div>
+            <div className="rounded-xl bg-white/8 p-4">
+              <p className="font-semibold">Android / Chrome / Edge</p>
+              <ol className="list-decimal pl-5 mt-2 space-y-1 text-[#c5d6e2]">
+                <li>Open the site in Chrome or Edge</li>
+                <li>Tap the menu (⋮)</li>
+                <li>Tap Install app or Add to Home screen</li>
+                <li>Or use Install when the in-app banner appears</li>
+              </ol>
+            </div>
+          </div>
+        </Card>
         <Card>
           <h2 className="font-heading text-2xl uppercase text-navy mb-3">Company</h2>
           <form action={saveSettings} className="grid gap-3">

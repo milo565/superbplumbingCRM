@@ -62,6 +62,7 @@ Plumbers only see customers and jobs assigned to them. Owners see the full board
 - **Maintenance plans** — six-monthly, annual, commercial, PM portfolio, custom
 - **Reports** — revenue, conversion, repeat rate, service mix, CSV export
 - **Team & settings** — roles, templates, audit trail, Xero / MYOB / SMS stubs
+- **Installable app** — Add to Home Screen / Install app (PWA) for phones and tablets
 
 SMS, email gateways and accounting exports are stored locally and not sent to live providers.
 
@@ -74,6 +75,31 @@ Create Job, job detail and property pages show an embedded map of the Melbourne 
 - Staff confirm the pin as the next sensible step when raising a job. Click-to-call stays next to both direction links.
 
 No map secrets are required for the seeded Taylors Lakes / Wheelers Hill / CBD demo addresses.
+
+## Use as an app (PWA)
+
+SuperbFlow CRM is a Progressive Web App. Staff can install it on a phone or tablet and launch it fullscreen — jobs, maps and follow-ups included.
+
+### iPhone / iPad (Safari)
+
+1. Open the CRM URL in Safari (Home Screen install does not work from Chrome on iOS).
+2. Tap **Share**.
+3. Tap **Add to Home Screen**, then **Add**.
+4. Open **SuperbFlow** from the home screen. It runs standalone (no Safari chrome).
+
+### Android / Chrome / Edge
+
+1. Open the CRM in Chrome or Edge.
+2. Tap the menu (⋮) → **Install app** or **Add to Home screen**.
+3. Or tap **Install app** when the in-app banner appears (Chrome `beforeinstallprompt`).
+
+### Local testing
+
+- `http://localhost:3000` is enough for service worker and install on desktop Chrome.
+- Phones talking to your laptop need HTTPS or a trusted local tunnel. A deployed HTTPS URL is the real van setup.
+- The service worker caches the app shell, icons, and recently opened pages (dashboard / jobs). It does **not** cache `/api/auth`, so login still needs a network. Full offline job sync is not in this demo.
+
+Theme colour `#091825`, background `#F5F1EB`, display `standalone`. Icons live in `public/icons/`.
 
 ## Locale
 

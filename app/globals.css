@@ -21,6 +21,14 @@ body {
   background: #f5f1eb;
   color: #111e2c;
   font-family: var(--font-dm), "DM Sans", sans-serif;
+  min-height: 100dvh;
+}
+
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
 }
 
 h1,

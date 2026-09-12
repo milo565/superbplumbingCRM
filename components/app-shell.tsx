@@ -28,6 +28,7 @@ import type { Role } from "@prisma/client";
 import { COMPANY, NAV_ITEMS, ROLE_LABELS, TONE } from "@/lib/constants";
 import { navVisible } from "@/lib/rbac";
 import { cn } from "@/lib/utils";
+import { InstallAppBanner, InstallAppButton } from "@/components/install-app";
 
 const ICONS = {
   LayoutDashboard,
@@ -101,7 +102,7 @@ export function AppShell({
     <div className="min-h-screen bg-cream text-ink">
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 w-[272px] bg-navy text-white flex flex-col transition-transform lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 w-[272px] bg-navy text-white flex flex-col transition-transform lg:translate-x-0 pt-[env(safe-area-inset-top)]",
           open ? "translate-x-0" : "-translate-x-full",
         )}
       >
@@ -152,7 +153,7 @@ export function AppShell({
       ) : null}
 
       <div className="lg:pl-[272px]">
-        <header className="sticky top-0 z-20 bg-navy/95 backdrop-blur border-b border-white/10">
+        <header className="sticky top-0 z-20 bg-navy/95 backdrop-blur border-b border-white/10 pt-[env(safe-area-inset-top)]">
           <div className="flex items-center gap-3 px-3 sm:px-5 py-3">
             <button
               className="lg:hidden text-white p-2 -ml-1"
@@ -175,6 +176,7 @@ export function AppShell({
                 />
               </label>
             </form>
+            <InstallAppButton />
             <a
               href="tel:0412121772"
               className="hidden sm:inline-flex rounded-xl bg-orange px-3 py-2.5 text-sm font-semibold text-white"
@@ -183,10 +185,13 @@ export function AppShell({
             </a>
           </div>
         </header>
-        <main className="px-3 sm:px-6 py-5 pb-24 lg:pb-8 max-w-[1400px]">{children}</main>
+        <InstallAppBanner />
+        <main className="px-3 sm:px-6 py-5 pb-[calc(6.5rem+env(safe-area-inset-bottom))] lg:pb-8 max-w-[1400px]">
+          {children}
+        </main>
       </div>
 
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-20 bg-navy text-white grid grid-cols-5 border-t border-white/10">
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-20 bg-navy text-white grid grid-cols-5 border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
         {[
           { href: "/dashboard", label: "Home", icon: LayoutDashboard },
           { href: "/jobs", label: "Jobs", icon: Wrench },
