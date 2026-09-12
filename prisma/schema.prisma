@@ -1,0 +1,521 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Native Postgres enums. Local and Vercel use the same schema.
+enum Role {
+  OWNER
+  OFFICE_ADMIN
+  SUPERVISOR
+  PLUMBER
+  SALES
+}
+
+enum CustomerType {
+  RESIDENTIAL
+  COMMERCIAL
+  INDUSTRIAL
+}
+
+enum CustomerStatus {
+  ACTIVE
+  INACTIVE
+  PROSPECT
+  ARCHIVED
+}
+
+enum JobStatus {
+  NEW_ENQUIRY
+  TRIAGE_REQUIRED
+  SITE_VISIT_REQUIRED
+  QUOTE_IN_PROGRESS
+  QUOTE_SENT
+  CUSTOMER_FOLLOW_UP
+  APPROVED
+  SCHEDULED
+  PLUMBER_ASSIGNED
+  ON_THE_WAY
+  IN_PROGRESS
+  AWAITING_PARTS
+  FOLLOW_UP_VISIT_REQUIRED
+  COMPLETED
+  CUSTOMER_SIGN_OFF
+  READY_TO_INVOICE
+  INVOICED
+  PAID
+  MAINTENANCE_FOLLOW_UP_SCHEDULED
+}
+
+enum JobPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+  EMERGENCY
+}
+
+enum ServiceCategory {
+  GENERAL_PLUMBING
+  GAS_FITTING
+  DRAINAGE
+  ROOFING
+  MAINTENANCE
+}
+
+enum QuoteStatus {
+  DRAFT
+  SENT
+  FOLLOW_UP
+  APPROVED
+  DECLINED
+  EXPIRED
+  CONVERTED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PARTIAL
+  PAID
+  OVERDUE
+  VOID
+}
+
+enum FollowUpStatus {
+  PENDING
+  AWAITING_APPROVAL
+  APPROVED
+  SENT
+  CALLED
+  SNOOZED
+  COMPLETED
+  CANCELLED
+  BLOCKED_OPT_OUT
+}
+
+enum FollowUpChannel {
+  INTERNAL
+  SMS
+  EMAIL
+  CALL
+}
+
+enum MaintenancePlanType {
+  SIX_MONTHLY
+  ANNUAL
+  COMMERCIAL
+  PM_PORTFOLIO
+  CUSTOM
+}
+
+enum CommunicationType {
+  PHONE
+  EMAIL
+  SMS
+  NOTE
+  SITE_VISIT
+}
+
+enum DocumentKind {
+  PHOTO
+  QUOTE_PDF
+  INVOICE_PDF
+  COMPLIANCE
+  OTHER
+}
+
+model User {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  passwordHash    String
+  name            String
+  phone           String?
+  role            Role
+  active          Boolean  @default(true)
+  licenceNumber   String?
+  avatarInitials  String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  managedCustomers Customer[]       @relation("AccountManager")
+  assignedJobs     Job[]            @relation("AssignedPlumber")
+  createdJobs      Job[]            @relation("JobCreatedBy")
+  createdQuotes    Quote[]          @relation("QuoteCreatedBy")
+  assignedFollowUps FollowUp[]      @relation("FollowUpOwner")
+  communications   Communication[]
+  auditLogs        AuditLog[]
+  timeEntries      TimeEntry[]
+}
+
+model Customer {
+  id                 String         @id @default(cuid())
+  customerNumber     String         @unique
+  type               CustomerType
+  name               String
+  contactName        String?
+  phone              String
+  email              String?
+  billingStreet      String
+  billingSuburb      String
+  billingState       String         @default("VIC")
+  billingPostcode    String
+  preferredContact   String         @default("phone")
+  source             String?
+  status             CustomerStatus @default(ACTIVE)
+  marketingConsent   Boolean        @default(true)
+  marketingOptOut    Boolean        @default(false)
+  accessInstructions String?
+  preferredTimes     String?
+  notes              String?
+  lastJobAt          DateTime?
+  nextFollowUpAt     DateTime?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  accountManagerId String?
+  accountManager   User?   @relation("AccountManager", fields: [accountManagerId], references: [id])
+
+  properties       Property[]
+  jobs             Job[]
+  quotes           Quote[]
+  invoices         Invoice[]
+  communications   Communication[]
+  followUps        FollowUp[]
+  maintenancePlans MaintenancePlan[]
+  documents        Document[]
+
+  @@index([phone])
+  @@index([email])
+  @@index([name])
+}
+
+model Property {
+  id               String       @id @default(cuid())
+  label            String?
+  street           String
+  suburb           String
+  state            String       @default("VIC")
+  postcode         String
+  type             CustomerType
+  siteContactName  String?
+  siteContactPhone String?
+  propertyManager  String?
+  accessNotes      String?
+  parkingNotes     String?
+  keysLockbox      String?
+  petsHazards      String?
+  waterMeter       String?
+  shutOffLocation  String?
+  hotWaterSystem   String?
+  gasNotes         String?
+  roofingDrainage  String?
+  fixtures         String?
+  complianceNotes  String?
+  recommendations  String?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  jobs             Job[]
+  quotes           Quote[]
+  invoices         Invoice[]
+  maintenancePlans MaintenancePlan[]
+  documents        Document[]
+
+  @@index([suburb])
+  @@index([customerId])
+}
+
+model Job {
+  id                String          @id @default(cuid())
+  jobNumber         String          @unique
+  status            JobStatus       @default(NEW_ENQUIRY)
+  priority          JobPriority     @default(NORMAL)
+  emergency         Boolean         @default(false)
+  category          ServiceCategory
+  title             String
+  description       String
+  appointmentStart  DateTime?
+  appointmentEnd    DateTime?
+  windowLabel       String?
+  labourHours       Float           @default(0)
+  labourRate        Float           @default(120)
+  materialsCost     Float           @default(0)
+  otherCost         Float           @default(0)
+  gstAmount         Float           @default(0)
+  totalIncGst       Float           @default(0)
+  marginPercent     Float?
+  beforeNotes       String?
+  afterNotes        String?
+  internalNotes     String?
+  recommendations   String?
+  signatureName     String?
+  signedAt          DateTime?
+  warrantyMonths    Int?
+  complianceNotes   String?
+  nextFollowUpAt    DateTime?
+  locationConfirmed Boolean         @default(false)
+  checkedInAt       DateTime?
+  checkedOutAt      DateTime?
+  completedAt       DateTime?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  customerId   String
+  customer     Customer  @relation(fields: [customerId], references: [id])
+  propertyId   String
+  property     Property  @relation(fields: [propertyId], references: [id])
+  assignedToId String?
+  assignedTo   User?     @relation("AssignedPlumber", fields: [assignedToId], references: [id])
+  createdById  String?
+  createdBy    User?     @relation("JobCreatedBy", fields: [createdById], references: [id])
+  quoteId      String?
+  quote        Quote?    @relation(fields: [quoteId], references: [id])
+
+  lineItems      LineItem[]
+  invoices       Invoice[]
+  followUps      FollowUp[]
+  communications Communication[]
+  documents      Document[]
+  timeEntries    TimeEntry[]
+  statusHistory  JobStatusHistory[]
+
+  @@index([status])
+  @@index([appointmentStart])
+  @@index([assignedToId])
+  @@index([customerId])
+}
+
+model JobStatusHistory {
+  id        String    @id @default(cuid())
+  from      JobStatus?
+  to        JobStatus
+  note      String?
+  createdAt DateTime  @default(now())
+  jobId     String
+  job       Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+}
+
+model Quote {
+  id            String          @id @default(cuid())
+  quoteNumber   String          @unique
+  status        QuoteStatus     @default(DRAFT)
+  category      ServiceCategory
+  title         String
+  introduction  String?
+  validUntil    DateTime?
+  labourHours   Float           @default(0)
+  labourRate    Float           @default(120)
+  materialsCost Float           @default(0)
+  otherCost     Float           @default(0)
+  gstAmount     Float           @default(0)
+  totalIncGst   Float           @default(0)
+  notes         String?
+  sentAt        DateTime?
+  approvedAt    DateTime?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id])
+  propertyId  String
+  property    Property @relation(fields: [propertyId], references: [id])
+  createdById String?
+  createdBy   User?    @relation("QuoteCreatedBy", fields: [createdById], references: [id])
+
+  lineItems LineItem[]
+  jobs      Job[]
+
+  @@index([status])
+  @@index([customerId])
+}
+
+model Invoice {
+  id            String        @id @default(cuid())
+  invoiceNumber String        @unique
+  status        InvoiceStatus @default(DRAFT)
+  issuedAt      DateTime      @default(now())
+  dueAt         DateTime
+  paidAt        DateTime?
+  labourHours   Float         @default(0)
+  labourRate    Float         @default(120)
+  materialsCost Float         @default(0)
+  otherCost     Float         @default(0)
+  gstAmount     Float         @default(0)
+  totalIncGst   Float         @default(0)
+  amountPaid    Float         @default(0)
+  notes         String?
+  xeroRef       String?
+  myobRef       String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+  jobId      String?
+  job        Job?     @relation(fields: [jobId], references: [id])
+
+  lineItems LineItem[]
+  payments  Payment[]
+
+  @@index([status])
+  @@index([dueAt])
+}
+
+model LineItem {
+  id          String  @id @default(cuid())
+  description String
+  quantity    Float   @default(1)
+  unitPrice   Float
+  gstInclusive Boolean @default(false)
+  sortOrder   Int     @default(0)
+
+  quoteId   String?
+  quote     Quote?   @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  jobId     String?
+  job       Job?     @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  invoiceId String?
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
+
+model Payment {
+  id        String   @id @default(cuid())
+  amount    Float
+  method    String
+  receivedAt DateTime @default(now())
+  reference String?
+  notes     String?
+  invoiceId String
+  invoice   Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
+
+model FollowUp {
+  id               String          @id @default(cuid())
+  title            String
+  status           FollowUpStatus  @default(PENDING)
+  channel          FollowUpChannel @default(INTERNAL)
+  sequenceStep     Int             @default(0)
+  dueAt            DateTime
+  snoozedUntil     DateTime?
+  requireApproval  Boolean         @default(false)
+  approvedAt       DateTime?
+  sentAt           DateTime?
+  completedAt      DateTime?
+  templateKey      String?
+  body             String
+  notes            String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  customerId   String
+  customer     Customer @relation(fields: [customerId], references: [id])
+  jobId        String?
+  job          Job?     @relation(fields: [jobId], references: [id])
+  assignedToId String?
+  assignedTo   User?    @relation("FollowUpOwner", fields: [assignedToId], references: [id])
+
+  @@index([dueAt])
+  @@index([status])
+}
+
+model MaintenancePlan {
+  id          String              @id @default(cuid())
+  name        String
+  type        MaintenancePlanType
+  intervalMonths Int
+  nextDueAt   DateTime
+  lastDoneAt  DateTime?
+  active      Boolean             @default(true)
+  notes       String?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+}
+
+model Communication {
+  id        String             @id @default(cuid())
+  type      CommunicationType
+  direction String             @default("outbound")
+  subject   String?
+  body      String
+  createdAt DateTime           @default(now())
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+  jobId      String?
+  job        Job?     @relation(fields: [jobId], references: [id])
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+}
+
+model Template {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  name      String
+  channel   FollowUpChannel
+  subject   String?
+  body      String
+  updatedAt DateTime @updatedAt
+}
+
+model Document {
+  id          String       @id @default(cuid())
+  name        String
+  kind        DocumentKind @default(OTHER)
+  placeholder Boolean      @default(true)
+  url         String?
+  createdAt   DateTime     @default(now())
+
+  customerId String?
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  propertyId String?
+  property   Property? @relation(fields: [propertyId], references: [id])
+  jobId      String?
+  job        Job?      @relation(fields: [jobId], references: [id])
+}
+
+model TimeEntry {
+  id        String    @id @default(cuid())
+  startedAt DateTime
+  endedAt   DateTime?
+  hours     Float?
+  note      String?
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  jobId     String
+  job       Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  action     String
+  entityType String
+  entityId   String
+  summary    String
+  createdAt  DateTime @default(now())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+}
+
+model Counter {
+  key   String @id
+  value Int    @default(0)
+}
+
+model Setting {
+  key   String @id
+  value String
+}

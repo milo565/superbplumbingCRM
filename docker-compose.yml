@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: superbflow-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: superbflow
+      POSTGRES_PASSWORD: superbflow
+      POSTGRES_DB: superbflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - superbflow_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U superbflow -d superbflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  superbflow_pg:
