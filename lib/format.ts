@@ -47,7 +47,7 @@ export function telHref(value?: string | null) {
 }
 
 export function mapsHref(address: string) {
-  return `https://maps.google.com/?q=${encodeURIComponent(address)}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 }
 
 export function formatAddress(parts: {

@@ -25,6 +25,6 @@ export async function customerScopeWhere() {
   return { user, assignedOnly, where };
 }
 
-export function touch(paths: string[]) {
+export async function touch(paths: string[]) {
   for (const path of paths) revalidatePath(path);
 }

@@ -26,10 +26,16 @@ export function Button({
     className,
   );
   if (href) {
-    const external = /^(https?:|tel:|mailto:)/.test(href);
+    const external = /^(https?:|tel:|mailto:|maps:)/.test(href);
     if (external) {
+      const newTab = href.startsWith("http");
       return (
-        <a href={href} className={cls}>
+        <a
+          href={href}
+          className={cls}
+          target={newTab ? "_blank" : undefined}
+          rel={newTab ? "noopener noreferrer" : undefined}
+        >
           {children}
         </a>
       );

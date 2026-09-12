@@ -1,4 +1,5 @@
 import { createProperty } from "@/actions/crm";
+import { AddressMapPreview } from "@/components/address-map-preview";
 import { Button, Card, Field, Input, PageHeader, Select, Textarea } from "@/components/ui";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/session";
@@ -32,15 +33,7 @@ export default async function NewPropertyPage({
           <Field label="Site label">
             <Input name="label" placeholder="Primary home, Tenancy B12…" />
           </Field>
-          <Field label="Street">
-            <Input name="street" required />
-          </Field>
-          <Field label="Suburb">
-            <Input name="suburb" required />
-          </Field>
-          <Field label="Postcode">
-            <Input name="postcode" required />
-          </Field>
+          <AddressMapPreview />
           <Field label="Type">
             <Select name="type" defaultValue="RESIDENTIAL">
               <option value="RESIDENTIAL">Residential</option>

@@ -4,9 +4,11 @@ import {
   checkInJob,
   checkOutJob,
   completeJobWithFollowUp,
+  confirmJobLocation,
   convertJobToInvoice,
   updateJobStatus,
 } from "@/actions/crm";
+import { MapPanel } from "@/components/map-panel";
 import { Button, Card, Field, Input, PageHeader, Select, StatusBadge, Textarea } from "@/components/ui";
 import { Meta, MoneyLine } from "@/components/lists";
 import {
@@ -15,6 +17,7 @@ import {
   PRIORITY_LABELS,
   SUGGESTED_FOLLOW_UP_MONTHS,
 } from "@/lib/constants";
+import { appleMapsUrl } from "@/lib/maps";
 import { formatAddress, formatDateTime, formatMoney, formatPhone, mapsHref, telHref } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/session";
@@ -59,7 +62,10 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
               </Button>
             ) : null}
             <Button href={mapsHref(formatAddress(job.property))} variant="ghost">
-              Maps
+              Google Maps
+            </Button>
+            <Button href={appleMapsUrl(formatAddress(job.property) + ", Australia")} variant="ghost">
+              Apple Maps
             </Button>
           </>
         }
@@ -72,6 +78,21 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
 
       <div className="grid lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2 space-y-4">
+          <MapPanel
+            address={job.property}
+            label={job.property.label || job.property.street}
+            phone={job.property.siteContactPhone || job.customer.phone}
+          />
+          {job.locationConfirmed ? (
+            <StatusBadge label="Location confirmed" tone="green" />
+          ) : can(user.role, "jobs:write") ? (
+            <form action={confirmJobLocation}>
+              <input type="hidden" name="id" value={job.id} />
+              <Button type="submit" variant="orange" className="w-full sm:w-auto">
+                Confirm this pin for the job
+              </Button>
+            </form>
+          ) : null}
           <Card>
             <p className="text-[15px] leading-relaxed">{job.description}</p>
             {job.internalNotes ? (

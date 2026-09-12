@@ -258,6 +258,7 @@ export async function createJob(form: FormData) {
       description: str(form, "description"),
       appointmentStart: start ? new Date(start) : null,
       windowLabel: str(form, "windowLabel") || null,
+      locationConfirmed: bool(form, "locationConfirmed"),
       labourHours,
       labourRate,
       materialsCost,
@@ -320,6 +321,9 @@ export async function updateJobStatus(form: FormData) {
       recommendations: str(form, "recommendations") || existing.recommendations,
       complianceNotes: str(form, "complianceNotes") || existing.complianceNotes,
       warrantyMonths: num(form, "warrantyMonths", existing.warrantyMonths ?? 0) || existing.warrantyMonths,
+      locationConfirmed: form.has("locationConfirmed")
+        ? bool(form, "locationConfirmed")
+        : existing.locationConfirmed,
       completedAt: to === "COMPLETED" ? new Date() : existing.completedAt,
       statusHistory: {
         create: { from: existing.status, to, note: str(form, "statusNote") || null },
@@ -425,6 +429,16 @@ export async function completeJobWithFollowUp(form: FormData) {
     summary: `Completed ${job.jobNumber} with ${mode} follow-up`,
   });
   touch(["/jobs", `/jobs/${id}`, "/follow-ups", "/maintenance", "/previous-work", "/dashboard"]);
+}
+
+export async function confirmJobLocation(form: FormData) {
+  await requirePermission("jobs:write");
+  const id = str(form, "id");
+  await prisma.job.update({
+    where: { id },
+    data: { locationConfirmed: true },
+  });
+  touch([`/jobs/${id}`, "/calendar"]);
 }
 
 export async function checkInJob(form: FormData) {

@@ -262,6 +262,7 @@ model Job {
   warrantyMonths    Int?
   complianceNotes   String?
   nextFollowUpAt    DateTime?
+  locationConfirmed Boolean         @default(false)
   checkedInAt       DateTime?
   checkedOutAt      DateTime?
   completedAt       DateTime?

@@ -53,8 +53,8 @@ Plumbers only see customers and jobs assigned to them. Owners see the full board
 
 - **Dashboard** — clickable cards for today’s jobs, emergencies, unassigned work, quotes, invoicing, follow-ups, maintenance and revenue
 - **Customers** — unique numbers, multi-site property-manager accounts, consent / opt-out, communication history, previous work
-- **Properties** — access, keys, pets, meters, gas, roofing, compliance and work history
-- **Jobs** — full enquiry → paid workflow, check-in / out, GST costing, complete-with-follow-up
+- **Properties** — access, keys, pets, meters, gas, roofing, compliance, work history and an embedded site map
+- **Jobs** — full enquiry → paid workflow, embedded Google + Apple Maps, check-in / out, GST costing, complete-with-follow-up
 - **Quotes & invoices** — branded documents, 10% GST, convert quote → job and job → invoice, payment tracking
 - **Calendar** — day / week / month, click-to-call and maps
 - **Previous work** — searchable completed jobs and “Create follow-up job”
@@ -64,6 +64,16 @@ Plumbers only see customers and jobs assigned to them. Owners see the full board
 - **Team & settings** — roles, templates, audit trail, Xero / MYOB / SMS stubs
 
 SMS, email gateways and accounting exports are stored locally and not sent to live providers.
+
+## Maps (Google + Apple)
+
+Create Job, job detail and property pages show an embedded map of the Melbourne site address.
+
+- **Google Maps** — iframe embed from the street address (`maps.google.com/...&output=embed`). Works in the demo with no API key. Optional `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY` switches to the official Maps Embed API.
+- **Apple Maps** — “Open in Apple Maps” / directions (`https://maps.apple.com/?q=...`) plus an on-page pin panel. Optional `NEXT_PUBLIC_APPLE_MAPS_TOKEN` (MapKit JS JWT) embeds a live Apple map. How to mint a token: [Apple MapKit JS](https://developer.apple.com/documentation/mapkitjs).
+- Staff confirm the pin as the next sensible step when raising a job. Click-to-call stays next to both direction links.
+
+No map secrets are required for the seeded Taylors Lakes / Wheelers Hill / CBD demo addresses.
 
 ## Locale
 

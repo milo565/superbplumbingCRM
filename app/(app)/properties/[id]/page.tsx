@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { updateProperty } from "@/actions/crm";
+import { MapPanel } from "@/components/map-panel";
 import { Button, Card, Field, Input, PageHeader, Select, Textarea } from "@/components/ui";
 import { JobList, Meta } from "@/components/lists";
+import { appleMapsUrl } from "@/lib/maps";
 import { formatAddress, mapsHref, telHref } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/session";
@@ -36,7 +38,10 @@ export default async function PropertyDetailPage({
         actions={
           <>
             <Button href={mapsHref(formatAddress(property))} variant="ghost">
-              Maps
+              Google Maps
+            </Button>
+            <Button href={appleMapsUrl(formatAddress(property) + ", Australia")} variant="ghost">
+              Apple Maps
             </Button>
             <Button href={`/jobs/new?customerId=${property.customerId}&propertyId=${property.id}`}>
               Job at this site
@@ -46,6 +51,11 @@ export default async function PropertyDetailPage({
       />
       <div className="grid lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2 space-y-4">
+          <MapPanel
+            address={property}
+            label={property.label || property.street}
+            phone={property.siteContactPhone || property.customer.phone}
+          />
           <Card>
             <h2 className="font-heading text-2xl uppercase tracking-wide text-navy mb-3">Work history</h2>
             <JobList jobs={property.jobs} />
