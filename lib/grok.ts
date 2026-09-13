@@ -130,7 +130,7 @@ export async function loadGrokContext(
   }
 
   if (!ref.id) {
-    return { ok: false, status: 400, error: "This page needs a record before Grok can use it." };
+      return { ok: false, status: 400, error: "This page needs a record before SuperbBOT can use it." };
   }
 
   if (ref.type === "job") {
@@ -145,7 +145,7 @@ export async function loadGrokContext(
     });
     if (!job) return { ok: false, status: 404, error: "Job not found." };
     if (assignedOnly && job.assignedToId !== user.id) {
-      return { ok: false, status: 403, error: "You can only ask Grok about jobs assigned to you." };
+      return { ok: false, status: 403, error: "You can only ask SuperbBOT about jobs assigned to you." };
     }
     return {
       ok: true,
@@ -207,7 +207,7 @@ export async function loadGrokContext(
     });
     if (!customer) return { ok: false, status: 404, error: "Customer not found." };
     if (assignedOnly && !(await plumberCanSeeCustomer(user.id, customer.id))) {
-      return { ok: false, status: 403, error: "You can only ask Grok about customers on your jobs." };
+      return { ok: false, status: 403, error: "You can only ask SuperbBOT about customers on your jobs." };
     }
     const jobs = assignedOnly ? customer.jobs.filter((j) => j.assignedToId === user.id) : customer.jobs;
     return {
@@ -261,7 +261,7 @@ export async function loadGrokContext(
     });
     if (!property) return { ok: false, status: 404, error: "Property not found." };
     if (assignedOnly && !(await plumberCanSeeCustomer(user.id, property.customerId))) {
-      return { ok: false, status: 403, error: "You can only ask Grok about sites on your jobs." };
+      return { ok: false, status: 403, error: "You can only ask SuperbBOT about sites on your jobs." };
     }
     return {
       ok: true,
@@ -313,7 +313,7 @@ export async function loadGrokContext(
     });
     if (!quote) return { ok: false, status: 404, error: "Quote not found." };
     if (assignedOnly && !(await plumberCanSeeCustomer(user.id, quote.customerId))) {
-      return { ok: false, status: 403, error: "You can only ask Grok about quotes on your jobs." };
+      return { ok: false, status: 403, error: "You can only ask SuperbBOT about quotes on your jobs." };
     }
     return {
       ok: true,
@@ -353,7 +353,7 @@ export async function loadGrokContext(
     });
     if (!invoice) return { ok: false, status: 404, error: "Invoice not found." };
     if (assignedOnly && !(await plumberCanSeeCustomer(user.id, invoice.customerId))) {
-      return { ok: false, status: 403, error: "You can only ask Grok about invoices on your jobs." };
+      return { ok: false, status: 403, error: "You can only ask SuperbBOT about invoices on your jobs." };
     }
     return {
       ok: true,
@@ -386,7 +386,7 @@ export async function loadGrokContext(
     });
     if (!plan) return { ok: false, status: 404, error: "Maintenance plan not found." };
     if (assignedOnly && !(await plumberCanSeeCustomer(user.id, plan.customerId))) {
-      return { ok: false, status: 403, error: "You can only ask Grok about plans on your jobs." };
+      return { ok: false, status: 403, error: "You can only ask SuperbBOT about plans on your jobs." };
     }
     return {
       ok: true,
@@ -426,7 +426,7 @@ export async function loadGrokContext(
       item.job?.assignedToId !== user.id &&
       !(await plumberCanSeeCustomer(user.id, item.customerId))
     ) {
-      return { ok: false, status: 403, error: "You can only ask Grok about follow-ups on your jobs." };
+      return { ok: false, status: 403, error: "You can only ask SuperbBOT about follow-ups on your jobs." };
     }
     return {
       ok: true,
@@ -463,7 +463,7 @@ export async function loadGrokContext(
 export async function completeGrokChat(messages: { role: string; content: string }[]) {
   const key = process.env.XAI_API_KEY?.trim();
   if (!key) {
-    return { ok: false as const, status: 503, error: "Add XAI_API_KEY to enable Grok." };
+    return { ok: false as const, status: 503, error: "Add XAI_API_KEY to enable SuperbBOT." };
   }
 
   const controller = new AbortController();
@@ -494,7 +494,7 @@ export async function completeGrokChat(messages: { role: string; content: string
         error:
           response.status === 401 || response.status === 403
             ? "xAI rejected the API key. Check XAI_API_KEY in the host environment."
-            : "Grok could not complete that request. Try again in a moment.",
+            : "SuperbBOT could not complete that request. Try again in a moment.",
       };
     }
 
@@ -502,12 +502,12 @@ export async function completeGrokChat(messages: { role: string; content: string
     try {
       parsed = JSON.parse(raw) as { choices?: { message?: { content?: string } }[] };
     } catch {
-      return { ok: false as const, status: 502, error: "Grok returned an unexpected response." };
+      return { ok: false as const, status: 502, error: "SuperbBOT returned an unexpected response." };
     }
 
     const content = parsed.choices?.[0]?.message?.content?.trim();
     if (!content) {
-      return { ok: false as const, status: 502, error: "Grok returned an empty reply." };
+      return { ok: false as const, status: 502, error: "SuperbBOT returned an empty reply." };
     }
     return { ok: true as const, content };
   } catch (error) {
@@ -515,7 +515,7 @@ export async function completeGrokChat(messages: { role: string; content: string
     return {
       ok: false as const,
       status: 502,
-      error: aborted ? "Grok timed out. Try a shorter question." : "Could not reach xAI right now.",
+      error: aborted ? "SuperbBOT timed out. Try a shorter question." : "Could not reach SuperbBOT right now.",
     };
   } finally {
     clearTimeout(timer);

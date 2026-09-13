@@ -20,13 +20,13 @@ export async function POST(request: Request) {
   const session = await auth();
   const user = session?.user;
   if (!user?.id) {
-    return NextResponse.json({ error: "Sign in to ask Grok." }, { status: 401 });
+    return NextResponse.json({ error: "Sign in to ask SuperbBOT." }, { status: 401 });
   }
   if (!can(user.role, "grok:use")) {
-    return NextResponse.json({ error: "Your role cannot use Grok." }, { status: 403 });
+    return NextResponse.json({ error: "Your role cannot use SuperbBOT." }, { status: 403 });
   }
   if (!isGrokConfigured()) {
-    return NextResponse.json({ error: "Add XAI_API_KEY to enable Grok." }, { status: 503 });
+    return NextResponse.json({ error: "Add XAI_API_KEY to enable SuperbBOT." }, { status: 503 });
   }
 
   let body: unknown;
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
   const turns = sanitizeTurns(payload.messages);
   const lastUser = [...turns].reverse().find((turn) => turn.role === "user");
   if (!lastUser) {
-    return NextResponse.json({ error: "Ask Grok a question first." }, { status: 400 });
+    return NextResponse.json({ error: "Ask SuperbBOT a question first." }, { status: 400 });
   }
 
   const ref = parseGrokRef(payload.context);
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
       action: "grok.ask",
       entityType: ref.type,
       entityId: ref.id ?? "app",
-      summary: `Asked Grok (${grokModel()}): ${lastUser.content.slice(0, 80)}`,
+      summary: `Asked SuperbBOT (${grokModel()}): ${lastUser.content.slice(0, 80)}`,
     });
   } catch {
     // Chat still succeeds if audit write fails.

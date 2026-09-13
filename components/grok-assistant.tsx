@@ -4,6 +4,7 @@ import { Copy, Loader2, Sparkles, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  ASSISTANT_NAME,
   grokChips,
   grokContextLabel,
   parseGrokPath,
@@ -22,13 +23,14 @@ export function AskGrokButton({
     <button
       type="button"
       onClick={onClick}
+      aria-label={ASSISTANT_NAME}
       className={cn(
         "inline-flex items-center justify-center gap-2 rounded-xl bg-blue px-3 py-2.5 text-sm font-semibold text-white min-h-11",
         compact && "px-2.5",
       )}
     >
       <Sparkles size={16} />
-      <span className={compact ? "sm:inline hidden" : undefined}>Ask Grok</span>
+      <span className={compact ? "sm:inline hidden" : undefined}>{ASSISTANT_NAME}</span>
     </button>
   );
 }
@@ -94,12 +96,12 @@ export function GrokAssistant({
       });
       const data = (await response.json()) as { reply?: string; error?: string };
       if (!response.ok || !data.reply) {
-        setError(data.error ?? "Grok could not answer that.");
+        setError(data.error ?? `${ASSISTANT_NAME} could not answer that.`);
         return;
       }
       setTurns([...nextTurns, { role: "assistant", content: data.reply }]);
     } catch {
-      setError("Could not reach Grok. Check the connection and try again.");
+      setError(`Could not reach ${ASSISTANT_NAME}. Check the connection and try again.`);
     } finally {
       setBusy(false);
     }
@@ -122,7 +124,7 @@ export function GrokAssistant({
       <button
         type="button"
         className="absolute inset-0 bg-navy/50 backdrop-blur-[2px]"
-        aria-label="Close Grok"
+        aria-label={`Close ${ASSISTANT_NAME}`}
         onClick={onClose}
       />
       <aside
@@ -134,9 +136,9 @@ export function GrokAssistant({
         <header className="bg-navy text-white px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 rounded-t-3xl lg:rounded-none">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="text-[11px] uppercase tracking-wide text-[#9cb4c4]">Grok · xAI</p>
+              <p className="text-[11px] uppercase tracking-wide text-[#9cb4c4]">SuperbFlow assistant</p>
               <h2 id="grok-title" className="font-heading text-2xl uppercase leading-none mt-1">
-                Ask Grok
+                {ASSISTANT_NAME}
               </h2>
               <p className="text-xs text-[#c5d6e2] mt-1.5">
                 {grokContextLabel(ref)} · drafts only — you send
@@ -146,7 +148,7 @@ export function GrokAssistant({
               type="button"
               onClick={onClose}
               className="p-2 rounded-xl hover:bg-white/10"
-              aria-label="Close Grok"
+              aria-label={`Close ${ASSISTANT_NAME}`}
             >
               <X size={18} />
             </button>
@@ -155,7 +157,7 @@ export function GrokAssistant({
 
         {!configured ? (
           <div className="p-5 space-y-3">
-            <p className="font-semibold text-navy">Add XAI_API_KEY to enable Grok</p>
+            <p className="font-semibold text-navy">Add XAI_API_KEY to enable SuperbBOT</p>
             <p className="text-sm text-[#4b5c69]">
               The assistant stays in the CRM. Get a key at{" "}
               <a
@@ -189,8 +191,8 @@ export function GrokAssistant({
             <div ref={listRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
               {turns.length === 0 && !error ? (
                 <p className="text-sm text-[#4b5c69]">
-                  No drama. Ask for a call brief, the next job status, or a follow-up draft. Grok
-                  uses this page&apos;s record — it does not send messages.
+                  No drama. Ask for a call brief, the next job status, or a follow-up draft.
+                  SuperbBOT uses this page&apos;s record — it does not send messages.
                 </p>
               ) : null}
               {turns.map((turn, index) => (
@@ -233,7 +235,7 @@ export function GrokAssistant({
               }}
             >
               <label className="sr-only" htmlFor="grok-input">
-                Message Grok
+                Message SuperbBOT
               </label>
               <textarea
                 id="grok-input"

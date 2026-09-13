@@ -37,7 +37,7 @@ In Vercel → Project → **Settings → Environment Variables**, add at least P
 | `NEXTAUTH_URL` | `https://your-app.vercel.app` first, then `https://crm.superbflowplumbing.com.au` |
 | `NEXTAUTH_SECRET` | Long random string (`openssl rand -base64 32`). **Not** the demo value |
 | `FOLLOWUP_REQUIRE_APPROVAL` | `true` recommended |
-| `XAI_API_KEY` | Optional. In-app Grok assistant. Get a key at [console.x.ai](https://console.x.ai). Never commit it. |
+| `XAI_API_KEY` | Optional. In-app SuperbBOT assistant. Get a key at [console.x.ai](https://console.x.ai). Never commit it. |
 | `XAI_MODEL` | Optional. Default `grok-4`. Set `grok-4.6` if your xAI account has it. |
 | `NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY` | Optional |
 | `NEXT_PUBLIC_APPLE_MAPS_TOKEN` | Optional MapKit JWT |
@@ -84,7 +84,7 @@ Then sign in and change every demo user password (or skip seed and create the ow
 - Change or delete seeded accounts. Demo password `SuperbFlow1!` is **not** for production.
 - Restrict who can access the Vercel project and Neon dashboard.
 - Keep follow-up SMS/email stubs until real gateways and consent checks are wired.
-- Grok drafts copy only. Staff still approve SMS/email. Do not put `XAI_API_KEY` in client env (`NEXT_PUBLIC_*`).
+- SuperbBOT drafts copy only. Staff still approve SMS/email. Do not put `XAI_API_KEY` in client env (`NEXT_PUBLIC_*`).
 
 ## 9. Install the PWA on phones
 
@@ -105,8 +105,8 @@ Localhost is fine for a desk test. Vans need the live HTTPS URL.
 | App builds, pages 500 | Migrations not applied — run `npx prisma migrate deploy` |
 | Maps blank | Fine without keys; check the address still has street + suburb + postcode |
 | PWA won't install on iPhone | Must use Safari on the HTTPS domain, not Chrome on iOS |
-| Ask Grok says add `XAI_API_KEY` | Set the key in Vercel env (Production + Preview), redeploy. Settings shows configured vs not — never the raw key |
-| Grok key rejected | Rotate the key at [console.x.ai](https://console.x.ai). Confirm `XAI_MODEL` is a chat model your account can call |
+| SuperbBOT says add `XAI_API_KEY` | Set the key in Vercel env (Production + Preview), redeploy. Settings shows configured vs not — never the raw key |
+| SuperbBOT key rejected | Rotate the key at [console.x.ai](https://console.x.ai). Confirm `XAI_MODEL` is a chat model your account can call |
 
 ## Local Postgres (optional)
 

@@ -90,11 +90,11 @@ export default async function SettingsPage() {
           <p className="text-sm mt-1">MYOB: {settings["integrations.myob"] ?? "disconnected"} (placeholder)</p>
           <p className="text-sm mt-1">SMS gateway: {settings["integrations.sms"] ?? "stub"}</p>
           <div className="mt-4 rounded-xl border border-[#e6ecef] bg-pale-2 p-3">
-            <p className="font-semibold text-navy">Grok (xAI)</p>
+            <p className="font-semibold text-navy">SuperbBOT</p>
             <p className="text-sm mt-1">
               {grokReady
-                ? `Configured · model ${grokModelName}. Ask Grok from the header on any CRM page.`
-                : "Add XAI_API_KEY to enable Grok."}
+                ? `Configured · model ${grokModelName}. Open SuperbBOT from the header on any CRM page.`
+                : "Add XAI_API_KEY to enable SuperbBOT."}
             </p>
             <p className="text-sm mt-2 text-[#4b5c69]">
               Get a key at{" "}
@@ -107,7 +107,7 @@ export default async function SettingsPage() {
                 console.x.ai
               </a>
               . The key stays on the server and is never shown here. Optional{" "}
-              <code>XAI_MODEL</code> (default <code>grok-4</code>). Grok drafts copy only — staff
+              <code>XAI_MODEL</code> (default <code>grok-4</code>). SuperbBOT drafts copy only — staff
               still approve SMS and email.
             </p>
           </div>
