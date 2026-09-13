@@ -65,6 +65,7 @@ Plumbers only see customers and jobs assigned to them. Owners see the full board
 - **Reports** — revenue, conversion, repeat rate, service mix, CSV export
 - **Team & settings** — roles, templates, audit trail, Xero / MYOB / SMS stubs
 - **Installable app** — Add to Home Screen / Install app (PWA) for phones and tablets
+- **Ask Grok** — in-app xAI assistant (header button) for call briefs, follow-up drafts, triage and work notes. Server-side `XAI_API_KEY` only.
 
 SMS, email gateways and accounting exports are stored locally and not sent to live providers.
 
@@ -77,6 +78,15 @@ Create Job, job detail and property pages show an embedded map of the Melbourne 
 - Staff confirm the pin as the next sensible step when raising a job. Click-to-call stays next to both direction links.
 
 No map secrets are required for the seeded Taylors Lakes / Wheelers Hill / CBD demo addresses.
+
+## Ask Grok
+
+An in-app Grok assistant (xAI) sits in the header. It reads the current customer, job, quote, property or follow-up and can draft SMS/email, summarise a call, suggest the next job status, or explain a dashboard card.
+
+- Server-only: set `XAI_API_KEY` (optional `XAI_MODEL`, default `grok-4`). Get a key at [console.x.ai](https://console.x.ai).
+- The key never reaches the browser. Settings shows **configured** or **Add XAI_API_KEY to enable Grok**.
+- Grok does not send messages. Staff still approve outbound copy. Opt-outs are flagged.
+- Owner, office, supervisor and sales can use it. Plumbers can ask about jobs assigned to them.
 
 ## Use as an app (PWA)
 
@@ -119,4 +129,5 @@ Theme colour `#091825`, background `#F5F1EB`, display `standalone`. Icons live i
 | `npm run db:up` | Start local Docker Postgres |
 | `npm run db:deploy` | `prisma migrate deploy` (production / CI) |
 | `npm run db:reset` | Recreate the database and seed |
+| `npm test` | Grok path / prompt helper tests |
 | `npx prisma studio` | Browse data |

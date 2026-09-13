@@ -1,5 +1,6 @@
 import { saveSettings, saveTemplate } from "@/actions/crm";
 import { Button, Card, Field, Input, PageHeader, Textarea } from "@/components/ui";
+import { grokModel, isGrokConfigured } from "@/lib/grok";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/session";
 import { can } from "@/lib/rbac";
@@ -17,6 +18,8 @@ export default async function SettingsPage() {
     orderBy: { createdAt: "desc" },
     take: 20,
   });
+  const grokReady = isGrokConfigured();
+  const grokModelName = grokModel();
 
   return (
     <div>
@@ -86,6 +89,28 @@ export default async function SettingsPage() {
           <p className="text-sm">Xero: {settings["integrations.xero"] ?? "disconnected"} (placeholder)</p>
           <p className="text-sm mt-1">MYOB: {settings["integrations.myob"] ?? "disconnected"} (placeholder)</p>
           <p className="text-sm mt-1">SMS gateway: {settings["integrations.sms"] ?? "stub"}</p>
+          <div className="mt-4 rounded-xl border border-[#e6ecef] bg-pale-2 p-3">
+            <p className="font-semibold text-navy">Grok (xAI)</p>
+            <p className="text-sm mt-1">
+              {grokReady
+                ? `Configured · model ${grokModelName}. Ask Grok from the header on any CRM page.`
+                : "Add XAI_API_KEY to enable Grok."}
+            </p>
+            <p className="text-sm mt-2 text-[#4b5c69]">
+              Get a key at{" "}
+              <a
+                href="https://console.x.ai"
+                className="text-blue font-semibold"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                console.x.ai
+              </a>
+              . The key stays on the server and is never shown here. Optional{" "}
+              <code>XAI_MODEL</code> (default <code>grok-4</code>). Grok drafts copy only — staff
+              still approve SMS and email.
+            </p>
+          </div>
           <p className="text-sm mt-4 text-[#4b5c69]">
             Outbound messages are stored in communications and never hit a live gateway in this demo.
           </p>

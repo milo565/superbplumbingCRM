@@ -28,7 +28,9 @@ import type { Role } from "@prisma/client";
 import { COMPANY, NAV_ITEMS, ROLE_LABELS, TONE } from "@/lib/constants";
 import { navVisible } from "@/lib/rbac";
 import { cn } from "@/lib/utils";
+import { AskGrokButton, GrokAssistant } from "@/components/grok-assistant";
 import { InstallAppBanner, InstallAppButton } from "@/components/install-app";
+import { can } from "@/lib/rbac";
 
 const ICONS = {
   LayoutDashboard,
@@ -49,15 +51,19 @@ const ICONS = {
 
 export function AppShell({
   user,
+  grokConfigured = false,
   children,
 }: {
   user: { name?: string | null; email?: string | null; role: Role };
+  grokConfigured?: boolean;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [grokOpen, setGrokOpen] = useState(false);
+  const showGrok = can(user.role, "grok:use");
 
   const items = useMemo(
     () => NAV_ITEMS.filter((item) => navVisible(user.role, item.href)),
@@ -176,6 +182,7 @@ export function AppShell({
                 />
               </label>
             </form>
+            {showGrok ? <AskGrokButton compact onClick={() => setGrokOpen(true)} /> : null}
             <InstallAppButton />
             <a
               href="tel:0412121772"
@@ -190,6 +197,10 @@ export function AppShell({
           {children}
         </main>
       </div>
+
+      {showGrok ? (
+        <GrokAssistant open={grokOpen} onClose={() => setGrokOpen(false)} configured={grokConfigured} />
+      ) : null}
 
       <nav className="lg:hidden fixed bottom-0 inset-x-0 z-20 bg-navy text-white grid grid-cols-5 border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
         {[
