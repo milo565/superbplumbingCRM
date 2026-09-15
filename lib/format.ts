@@ -31,7 +31,13 @@ export function formatMoney(value?: number | null, fallback = "$0.00") {
 
 export function formatPhone(value?: string | null) {
   if (!value) return "—";
-  const digits = value.replace(/\D/g, "");
+  let digits = value.replace(/\D/g, "");
+  if (digits.length === 11 && digits.startsWith("61")) {
+    digits = `0${digits.slice(2)}`;
+  }
+  if (digits.length === 9 && digits.startsWith("4")) {
+    digits = `0${digits}`;
+  }
   if (digits.length === 10 && digits.startsWith("04")) {
     return `${digits.slice(0, 4)} ${digits.slice(4, 7)} ${digits.slice(7)}`;
   }
@@ -43,6 +49,16 @@ export function formatPhone(value?: string | null) {
 
 export function telHref(value?: string | null) {
   if (!value) return undefined;
+  const digits = value.replace(/\D/g, "");
+  if (digits.length === 11 && digits.startsWith("61")) {
+    return `tel:+${digits}`;
+  }
+  if (digits.length === 10 && digits.startsWith("0")) {
+    return `tel:+61${digits.slice(1)}`;
+  }
+  if (digits.length === 9 && digits.startsWith("4")) {
+    return `tel:+61${digits}`;
+  }
   return `tel:${value.replace(/\s/g, "")}`;
 }
 

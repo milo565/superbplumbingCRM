@@ -133,8 +133,14 @@ export function AppShell({
           </button>
         </div>
         <div className="px-4 pb-4">
-          <p className="text-xs text-[#8aa0b0]">
-            {COMPANY.phonePrimary} · {COMPANY.base}
+          <p className="text-xs text-[#8aa0b0] leading-5">
+            <a className="text-white font-semibold" href={COMPANY.phoneTel}>
+              {COMPANY.phonePrimary}
+            </a>
+            <br />
+            {COMPANY.address}
+            <br />
+            {COMPANY.hours}
           </p>
         </div>
         <div className="flex-1 overflow-y-auto">{nav}</div>
@@ -185,10 +191,11 @@ export function AppShell({
             {showGrok ? <AskGrokButton compact onClick={() => setGrokOpen(true)} /> : null}
             <InstallAppButton />
             <a
-              href={`tel:${COMPANY.phonePrimary.replace(/\s/g, "")}`}
+              href={COMPANY.phoneTel}
               className="hidden sm:inline-flex rounded-xl bg-orange px-3 py-2.5 text-sm font-semibold text-white"
+              aria-label={`Call ${COMPANY.name} on ${COMPANY.phonePrimary}`}
             >
-              24/7
+              {COMPANY.phonePrimary}
             </a>
           </div>
         </header>

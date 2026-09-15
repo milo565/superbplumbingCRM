@@ -1,6 +1,13 @@
 # Kaizen Coastal CRM
 
-A mobile-friendly CRM and job-management workspace for **Kaizen Coastal Air Conditioning** (also Kaizen Coastal Airconditioning) — residential and commercial air conditioning across the **Gold Coast (QLD)** and **Northern NSW**, based in **Tugun**.
+A mobile-friendly CRM and job-management workspace for **Kaizen Coastal Air Conditioning** (also Kaizen Coastal Airconditioning) — a **home service in Tugun, Queensland** covering residential and commercial air conditioning across the **Gold Coast (QLD)** and **Northern NSW**.
+
+| | |
+| --- | --- |
+| Address | **The Parc, 2 Inland Dr, Tugun QLD 4224** |
+| Phone | **0428 316 868** (`tel:+61428316868`) |
+| Hours | Open, **closes 21:00** (trade hours Mon–Sun 07:00–21:00) |
+| Service area | Gold Coast (QLD) and Northern NSW |
 
 Public listing: [hipages — Kaizen Coastal Airconditioning](https://hipages.com.au/connect/kaizencoastalairconditioning).
 

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s · Kaizen Coastal CRM",
   },
   description:
-    "Job management and customer follow-up for Kaizen Coastal Air Conditioning — Gold Coast and Northern NSW.",
+    "Job management for Kaizen Coastal Air Conditioning, a home service in Tugun, Queensland. Gold Coast and Northern NSW. The Parc, 2 Inland Dr, Tugun QLD 4224. Open, closes 21:00. Call 0428 316 868.",
   applicationName: "Kaizen Coastal CRM",
   manifest: "/manifest.webmanifest",
   appleWebApp: {

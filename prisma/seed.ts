@@ -14,7 +14,7 @@ import {
 } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { addDays, addMonths, setHours, setMinutes, subDays, subMonths } from "date-fns";
-import { DEMO_PASSWORD } from "../lib/constants";
+import { COMPANY, DEMO_PASSWORD } from "../lib/constants";
 import { calcTotals } from "../lib/money";
 
 const prisma = new PrismaClient();
@@ -58,7 +58,7 @@ async function main() {
       email: "kai@kaizencoastal.com.au",
       passwordHash: hash,
       name: "Kai Vincent",
-      phone: "0420551880",
+      phone: "0428316868",
       role: Role.OWNER,
       avatarInitials: "KV",
       licenceNumber: "ARC L188734",
@@ -69,7 +69,7 @@ async function main() {
       email: "office@kaizencoastal.com.au",
       passwordHash: hash,
       name: "Maya Chen",
-      phone: "0755243190",
+      phone: "0428316868",
       role: Role.OFFICE_ADMIN,
       avatarInitials: "MC",
     },
@@ -120,11 +120,14 @@ async function main() {
 
   await prisma.setting.createMany({
     data: [
-      { key: "companyName", value: "Kaizen Coastal Air Conditioning" },
-      { key: "abn", value: "18 871 604 073" },
-      { key: "email", value: "kai@kaizencoastal.com.au" },
-      { key: "phonePrimary", value: "0420551880" },
-      { key: "phoneSecondary", value: "0755243190" },
+      { key: "companyName", value: COMPANY.name },
+      { key: "category", value: COMPANY.category },
+      { key: "address", value: COMPANY.address },
+      { key: "abn", value: COMPANY.abn },
+      { key: "email", value: COMPANY.email },
+      { key: "phonePrimary", value: COMPANY.phonePrimary },
+      { key: "hours", value: COMPANY.hours },
+      { key: "hoursSchedule", value: COMPANY.hoursSchedule },
       { key: "followUpRequireApproval", value: "true" },
       { key: "defaultLabourRate", value: String(RATE) },
       { key: "gstRate", value: "0.10" },
@@ -141,14 +144,14 @@ async function main() {
         key: "followup-sms-due",
         name: "Follow-up SMS — service due",
         channel: FollowUpChannel.SMS,
-        body: "Hi {{contactName}}, it's {{technicianName}} from Kaizen Coastal. Your {{service}} at {{propertyAddress}} is due for a filter clean / service so it stays efficient. Want a morning window? Reply YES or call 0420 551 880.",
+        body: "Hi {{contactName}}, it's {{technicianName}} from Kaizen Coastal. Your {{service}} at {{propertyAddress}} is due for a filter clean / service so it stays efficient. Want a morning window? Reply YES or call 0428 316 868.",
       },
       {
         key: "followup-email-due",
         name: "Follow-up email — service due",
         channel: FollowUpChannel.EMAIL,
         subject: "Service due — {{propertyAddress}}",
-        body: "Hi {{contactName}},\n\nYour {{service}} at {{propertyAddress}} is coming due for a filter clean and performance check. That keeps the system efficient through Gold Coast humidity.\n\nWe can lock a morning or afternoon window that suits.\n\nKaizen Coastal Air Conditioning\nThe perfect temperature all year round.\n0420 551 880",
+        body: "Hi {{contactName}},\n\nYour {{service}} at {{propertyAddress}} is coming due for a filter clean and performance check. That keeps the system efficient through Gold Coast humidity.\n\nWe can lock a morning or afternoon window that suits. We're open until 21:00.\n\nKaizen Coastal Air Conditioning\nHome service in Tugun, Queensland\nThe Parc, 2 Inland Dr, Tugun QLD 4224\nThe perfect temperature all year round.\n0428 316 868",
       },
       {
         key: "followup-call-script",
@@ -161,7 +164,7 @@ async function main() {
         name: "Quote cover note",
         channel: FollowUpChannel.EMAIL,
         subject: "Quote {{quoteNumber}} — Kaizen Coastal Air Conditioning",
-        body: "Hi {{contactName}},\n\nHere is a clear quote for the air conditioning work at {{propertyAddress}}. GST is included. Happy to talk through sizing, install window and warranty.\n\nKai — 0420 551 880",
+        body: "Hi {{contactName}},\n\nHere is a clear quote for the air conditioning work at {{propertyAddress}}. GST is included. Happy to talk through sizing, install window and warranty.\n\nKaizen Coastal Air Conditioning\nThe Parc, 2 Inland Dr, Tugun QLD 4224\nKai — 0428 316 868 · open, closes 21:00",
       },
     ],
   });

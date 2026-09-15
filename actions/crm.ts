@@ -749,10 +749,13 @@ export async function saveSettings(form: FormData) {
   await requirePermission("settings:write");
   const keys = [
     "companyName",
+    "category",
+    "address",
     "abn",
     "email",
     "phonePrimary",
-    "phoneSecondary",
+    "hours",
+    "hoursSchedule",
     "followUpRequireApproval",
     "defaultLabourRate",
   ];

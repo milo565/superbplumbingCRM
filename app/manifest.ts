@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Kaizen Coastal CRM",
     short_name: "Kaizen",
     description:
-      "Job management and customer follow-up for Kaizen Coastal Air Conditioning. Gold Coast and Northern NSW.",
+      "Kaizen Coastal Air Conditioning — home service in Tugun, Queensland. Gold Coast and Northern NSW. Open, closes 21:00. Call 0428 316 868.",
     start_url: "/",
     scope: "/",
     display: "standalone",

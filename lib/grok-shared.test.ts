@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+  GROK_SYSTEM_PROMPT,
   grokChips,
   grokContextLabel,
   grokModelFromEnv,
@@ -55,6 +56,16 @@ describe("parseGrokRef", () => {
   it("rejects unknown types", () => {
     assert.deepEqual(parseGrokRef({ type: "admin", id: "1" }), { type: "general" });
     assert.deepEqual(parseGrokRef({ type: "job", id: "job_1" }), { type: "job", id: "job_1" });
+  });
+});
+
+describe("GROK_SYSTEM_PROMPT", () => {
+  it("includes confirmed Kaizen Coastal contact details", () => {
+    assert.match(GROK_SYSTEM_PROMPT, /The Parc, 2 Inland Dr, Tugun QLD 4224/);
+    assert.match(GROK_SYSTEM_PROMPT, /0428 316 868/);
+    assert.match(GROK_SYSTEM_PROMPT, /tel:\+61428316868/);
+    assert.match(GROK_SYSTEM_PROMPT, /closes 21:00/);
+    assert.match(GROK_SYSTEM_PROMPT, /home service in Tugun/i);
   });
 });
 

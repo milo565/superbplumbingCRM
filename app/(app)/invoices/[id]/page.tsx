@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { recordPayment } from "@/actions/crm";
 import { Button, Card, Field, Input, PageHeader, Select, StatusBadge } from "@/components/ui";
 import { MoneyLine } from "@/components/lists";
+import { CompanyLetterhead } from "@/components/company-letterhead";
 import { COMPANY, INVOICE_STATUS_LABELS } from "@/lib/constants";
 import { formatAddress, formatDate, formatMoney } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
@@ -31,11 +32,15 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
       />
       <div className="grid lg:grid-cols-3 gap-4 mt-5">
         <Card className="lg:col-span-2">
-          <p className="font-heading text-3xl uppercase text-navy">{COMPANY.name}</p>
-          <p className="text-sm text-[#4b5c69] mb-4">
-            {formatAddress(invoice.property)} · issued {formatDate(invoice.issuedAt)} · due{" "}
-            {formatDate(invoice.dueAt)}
-          </p>
+          <CompanyLetterhead
+            extra={
+              <>
+                <p>Issued {formatDate(invoice.issuedAt)}</p>
+                <p>Due {formatDate(invoice.dueAt)}</p>
+              </>
+            }
+          />
+          <p className="text-sm text-[#4b5c69] mb-4">{formatAddress(invoice.property)}</p>
           {invoice.job ? <p className="mb-3">Job {invoice.job.jobNumber} — {invoice.job.title}</p> : null}
           <MoneyLine label="Labour" value={invoice.labourHours * invoice.labourRate} />
           <MoneyLine label="Materials" value={invoice.materialsCost} />

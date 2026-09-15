@@ -58,11 +58,19 @@ export default function LoginPage() {
             seasonal services on one board for the office and the van.
           </p>
         </div>
-        <p className="text-sm text-[#8aa0b0]">
-          {COMPANY.name} · {COMPANY.base}
-          <br />
-          {COMPANY.phonePrimary} · {COMPANY.phoneOffice}
-        </p>
+        <div className="text-sm text-[#8aa0b0] space-y-1">
+          <p>{COMPANY.name}</p>
+          <p>{COMPANY.category}</p>
+          <p>{COMPANY.address}</p>
+          <p>
+            <a className="text-white font-semibold" href={COMPANY.phoneTel}>
+              {COMPANY.phonePrimary}
+            </a>
+            {" · "}
+            {COMPANY.hours}
+          </p>
+          <p>{COMPANY.hoursSchedule} · Gold Coast &amp; Northern NSW</p>
+        </div>
       </section>
 
       <section className="flex items-center justify-center p-6 sm:p-10 bg-cream text-ink">
@@ -75,6 +83,17 @@ export default function LoginPage() {
               height={72}
               className="h-14 w-14 rounded-2xl"
             />
+            <p className="mt-3 text-sm text-[#3c4d5a]">
+              {COMPANY.category}
+              <br />
+              {COMPANY.address}
+              <br />
+              <a className="text-blue font-semibold" href={COMPANY.phoneTel}>
+                {COMPANY.phonePrimary}
+              </a>
+              {" · "}
+              {COMPANY.hours}
+            </p>
           </div>
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue">
             Team login
