@@ -20,7 +20,7 @@ export default async function EnquiriesPage() {
       <PageHeader
         eyebrow="Front door"
         title="New enquiries"
-        description="First calls and quote-form jobs that still need a sensible plan."
+        description="First calls and quote-form jobs that still need a site visit or a clear quote."
         actions={<Button href="/jobs/new?enquiry=1">Log enquiry</Button>}
       />
       <Card>

@@ -29,7 +29,7 @@ export default async function NewJobPage({
     },
     orderBy: { name: "asc" },
   });
-  const plumbers = await prisma.user.findMany({
+  const technicians = await prisma.user.findMany({
     where: { active: true, role: { in: ["PLUMBER", "SUPERVISOR", "OWNER"] } },
     orderBy: { name: "asc" },
     select: { id: true, name: true },
@@ -44,7 +44,7 @@ export default async function NewJobPage({
       />
       <JobCreateForm
         customers={customers}
-        plumbers={plumbers}
+        technicians={technicians}
         defaultCustomerId={customerId}
         defaultPropertyId={propertyId}
         enquiry={Boolean(enquiry)}

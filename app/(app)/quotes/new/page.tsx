@@ -1,5 +1,6 @@
 import { createQuote } from "@/actions/crm";
 import { Button, Card, Field, Input, PageHeader, Select, Textarea } from "@/components/ui";
+import { CATEGORY_LABELS } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/session";
 
@@ -43,12 +44,12 @@ export default async function NewQuotePage() {
             <Input name="title" required />
           </Field>
           <Field label="Category">
-            <Select name="category" defaultValue="GENERAL_PLUMBING">
-              <option value="GENERAL_PLUMBING">General plumbing</option>
-              <option value="GAS_FITTING">Gas fitting</option>
-              <option value="DRAINAGE">Drainage</option>
-              <option value="ROOFING">Roofing</option>
-              <option value="MAINTENANCE">Maintenance</option>
+            <Select name="category" defaultValue="SPLIT_INSTALL">
+              {Object.entries(CATEGORY_LABELS).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
             </Select>
           </Field>
           <div className="md:col-span-2">

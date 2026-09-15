@@ -35,7 +35,7 @@ export default async function PropertiesPage({
       <PageHeader
         eyebrow="Sites"
         title="Properties and sites"
-        description="Access notes, hazards and what the last visit found."
+        description="Outdoor unit, indoor heads, isolator, filters and what the last visit found."
         actions={
           can(user.role, "properties:write") ? <Button href="/properties/new">Add site</Button> : null
         }

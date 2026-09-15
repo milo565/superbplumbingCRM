@@ -17,7 +17,7 @@ export function AddressMapPreview({
 }) {
   const [street, setStreet] = useState(defaults?.street ?? "");
   const [suburb, setSuburb] = useState(defaults?.suburb ?? "");
-  const [state, setState] = useState(defaults?.state ?? "VIC");
+  const [state, setState] = useState(defaults?.state ?? "QLD");
   const [postcode, setPostcode] = useState(defaults?.postcode ?? "");
   const ready = street.trim().length > 3 && suburb.trim().length > 1 && postcode.trim().length >= 3;
 

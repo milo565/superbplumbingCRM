@@ -7,7 +7,7 @@ import {
 import { PageHeader, SectionTitle, StatCard, Card } from "@/components/ui";
 import { JobList } from "@/components/lists";
 import { CATEGORY_LABELS, TONE } from "@/lib/constants";
-import { formatMoney, melbourneDayRange } from "@/lib/format";
+import { formatMoney, localDayRange } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 import { currentScope } from "@/lib/session";
 import { isCompletedWork } from "@/lib/workflow";
@@ -17,7 +17,7 @@ export const metadata = { title: "Dashboard" };
 export default async function DashboardPage() {
   const { user, assignedOnly } = await currentScope();
   const jobScope = assignedOnly ? { assignedToId: user.id } : {};
-  const { start: todayStart, end: todayEnd } = melbourneDayRange();
+  const { start: todayStart, end: todayEnd } = localDayRange();
   const weekStart = startOfWeek(todayStart, { weekStartsOn: 1 });
   const monthStart = startOfMonth(todayStart);
   const yearStart = startOfYear(todayStart);
@@ -42,7 +42,7 @@ export default async function DashboardPage() {
     quotes,
     completedJobs,
     categoryJobs,
-    plumberLoad,
+    technicianLoad,
   ] = await Promise.all([
     prisma.job.findMany({
       where: {
@@ -133,7 +133,7 @@ export default async function DashboardPage() {
     <div>
       <PageHeader
         eyebrow="Today"
-        title="Who needs a hand."
+        title="Today's board."
         description={`${TONE.nextStep} ${assignedOnly ? "Showing jobs assigned to you." : "Whole crew view."}`}
       />
 
@@ -198,9 +198,9 @@ export default async function DashboardPage() {
           </div>
         </Card>
         <Card>
-          <SectionTitle>Workload by plumber</SectionTitle>
+          <SectionTitle>Workload by technician</SectionTitle>
           <div className="space-y-3">
-            {plumberLoad.map((person) => (
+            {technicianLoad.map((person) => (
               <div key={person.id} className="flex items-center justify-between text-sm">
                 <span>{person.name}</span>
                 <span className="font-semibold text-navy">

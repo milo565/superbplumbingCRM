@@ -8,7 +8,7 @@ import {
 import { formatAddress, formatDate, formatMoney, formatPhone } from "@/lib/format";
 import { statusTone } from "@/lib/workflow";
 import { StatusBadge } from "@/components/ui";
-import type { Customer, Job, JobPriority, JobStatus, Property, User } from "@prisma/client";
+import type { Customer, Job, JobPriority, Property, User } from "@prisma/client";
 
 type JobRow = Job & {
   customer: Pick<Customer, "id" | "name" | "phone">;

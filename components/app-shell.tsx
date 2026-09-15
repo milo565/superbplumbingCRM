@@ -21,14 +21,16 @@ import {
   Search,
   Settings,
   Users,
-  Wrench,
+  Wind,
   X,
 } from "lucide-react";
 import type { Role } from "@prisma/client";
-import { COMPANY, NAV_ITEMS, ROLE_LABELS, TONE } from "@/lib/constants";
+import { COMPANY, NAV_ITEMS, ROLE_LABELS } from "@/lib/constants";
 import { navVisible } from "@/lib/rbac";
 import { cn } from "@/lib/utils";
+import { AskGrokButton, GrokAssistant } from "@/components/grok-assistant";
 import { InstallAppBanner, InstallAppButton } from "@/components/install-app";
+import { can } from "@/lib/rbac";
 
 const ICONS = {
   LayoutDashboard,
@@ -36,7 +38,7 @@ const ICONS = {
   Building2,
   Inbox,
   FileText,
-  Wrench,
+  Wind,
   CalendarDays,
   History,
   PhoneForwarded,
@@ -49,15 +51,19 @@ const ICONS = {
 
 export function AppShell({
   user,
+  grokConfigured = false,
   children,
 }: {
   user: { name?: string | null; email?: string | null; role: Role };
+  grokConfigured?: boolean;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [grokOpen, setGrokOpen] = useState(false);
+  const showGrok = can(user.role, "grok:use");
 
   const items = useMemo(
     () => NAV_ITEMS.filter((item) => navVisible(user.role, item.href)),
@@ -109,17 +115,17 @@ export function AppShell({
         <div className="flex items-center justify-between px-4 py-4">
           <Link href="/dashboard" className="flex items-center gap-3">
             <Image
-              src="/superbflow-logo.png"
-              alt="SuperbFlow Plumbing"
+              src="/kaizen-logo.png"
+              alt="Kaizen Coastal Air Conditioning"
               width={44}
-              height={36}
-              className="h-9 w-auto brightness-0 invert"
+              height={44}
+              className="h-9 w-9 rounded-lg"
             />
             <div>
               <p className="font-heading text-xl uppercase tracking-wide leading-none">
-                SuperbFlow
+                Kaizen
               </p>
-              <p className="text-[11px] text-[#9cb4c4] mt-1">CRM · {TONE.noDrama}</p>
+              <p className="text-[11px] text-[#9cb4c4] mt-1">CRM · Gold Coast &amp; Nth NSW</p>
             </div>
           </Link>
           <button className="lg:hidden p-2" onClick={() => setOpen(false)} aria-label="Close menu">
@@ -127,8 +133,14 @@ export function AppShell({
           </button>
         </div>
         <div className="px-4 pb-4">
-          <p className="text-xs text-[#8aa0b0]">
-            {COMPANY.phoneAnthony} · {COMPANY.phoneNathan}
+          <p className="text-xs text-[#8aa0b0] leading-5">
+            <a className="text-white font-semibold" href={COMPANY.phoneTel}>
+              {COMPANY.phonePrimary}
+            </a>
+            <br />
+            {COMPANY.address}
+            <br />
+            {COMPANY.hours}
           </p>
         </div>
         <div className="flex-1 overflow-y-auto">{nav}</div>
@@ -172,16 +184,18 @@ export function AppShell({
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search customers, jobs, sites, quotes…"
-                  className="w-full rounded-xl bg-[#102938] text-white placeholder:text-[#7f96a6] pl-9 pr-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue"
+                  className="w-full rounded-xl bg-navy-2 text-white placeholder:text-[#7f96a6] pl-9 pr-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue"
                 />
               </label>
             </form>
+            {showGrok ? <AskGrokButton compact onClick={() => setGrokOpen(true)} /> : null}
             <InstallAppButton />
             <a
-              href="tel:0412121772"
+              href={COMPANY.phoneTel}
               className="hidden sm:inline-flex rounded-xl bg-orange px-3 py-2.5 text-sm font-semibold text-white"
+              aria-label={`Call ${COMPANY.name} on ${COMPANY.phonePrimary}`}
             >
-              24/7
+              {COMPANY.phonePrimary}
             </a>
           </div>
         </header>
@@ -191,10 +205,14 @@ export function AppShell({
         </main>
       </div>
 
+      {showGrok ? (
+        <GrokAssistant open={grokOpen} onClose={() => setGrokOpen(false)} configured={grokConfigured} />
+      ) : null}
+
       <nav className="lg:hidden fixed bottom-0 inset-x-0 z-20 bg-navy text-white grid grid-cols-5 border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
         {[
           { href: "/dashboard", label: "Home", icon: LayoutDashboard },
-          { href: "/jobs", label: "Jobs", icon: Wrench },
+          { href: "/jobs", label: "Jobs", icon: Wind },
           { href: "/calendar", label: "Today", icon: CalendarDays },
           { href: "/customers", label: "People", icon: Users },
           { href: "/follow-ups", label: "Follow", icon: PhoneForwarded },

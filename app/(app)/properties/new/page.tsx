@@ -64,27 +64,32 @@ export default async function NewPropertyPage({
           <Field label="Pets / hazards">
             <Textarea name="petsHazards" />
           </Field>
-          <Field label="Water meter">
-            <Input name="waterMeter" />
+          <Field label="Outdoor unit">
+            <Input name="outdoorUnit" placeholder="Wall / roof / ground, make" />
           </Field>
-          <Field label="Shut-off">
-            <Input name="shutOffLocation" />
+          <Field label="Isolator location">
+            <Input name="isolatorLocation" />
           </Field>
-          <Field label="Hot water">
-            <Input name="hotWaterSystem" />
+          <Field label="Indoor heads">
+            <Input name="indoorHeads" placeholder="Count, rooms, cassette/split" />
           </Field>
-          <Field label="Gas">
-            <Input name="gasNotes" />
+          <Field label="Refrigerant">
+            <Input name="refrigerantType" placeholder="R32 / R410A / reclaim notes" />
           </Field>
-          <Field label="Roofing / drainage">
-            <Input name="roofingDrainage" />
+          <Field label="Mount notes">
+            <Input name="mountNotes" placeholder="Roof / wall / slab, access" />
           </Field>
-          <Field label="Fixtures">
-            <Input name="fixtures" />
+          <Field label="Model / serial">
+            <Input name="modelSerial" />
           </Field>
           <div className="md:col-span-2">
-            <Field label="Compliance">
-              <Textarea name="complianceNotes" />
+            <Field label="Filter / service dates">
+              <Input name="filterDates" placeholder="Last filter clean, next due" />
+            </Field>
+          </div>
+          <div className="md:col-span-2">
+            <Field label="Compliance / warranty">
+              <Textarea name="complianceNotes" placeholder="ARC, electrical isolator, warranty" />
             </Field>
           </div>
           <div className="md:col-span-2">

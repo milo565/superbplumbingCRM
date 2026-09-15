@@ -1,13 +1,14 @@
 {
-  "name": "superbflow-crm",
+  "name": "kaizen-coastal-crm",
   "version": "1.0.0",
   "private": true,
-  "description": "SuperbFlow CRM — job management and customer follow-up for SuperbFlow Plumbing",
+  "description": "Kaizen Coastal CRM — job management for Kaizen Coastal Air Conditioning, a home service in Tugun, Queensland",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "tsx --test lib/grok-shared.test.ts lib/format.test.ts",
     "postinstall": "prisma generate",
     "db:up": "docker compose up -d",
     "db:migrate": "prisma migrate dev",

@@ -28,7 +28,8 @@ export type Permission =
   | "team:write"
   | "settings:read"
   | "settings:write"
-  | "search:all";
+  | "search:all"
+  | "grok:use";
 
 const ALL: Permission[] = [
   "dashboard:all",
@@ -59,6 +60,7 @@ const ALL: Permission[] = [
   "settings:read",
   "settings:write",
   "search:all",
+  "grok:use",
 ];
 
 const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
@@ -88,6 +90,7 @@ const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     "team:read",
     "settings:read",
     "search:all",
+    "grok:use",
   ],
   PLUMBER: [
     "dashboard:all",
@@ -101,6 +104,7 @@ const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     "followups:read",
     "maintenance:read",
     "search:all",
+    "grok:use",
   ],
   SALES: [
     "dashboard:all",
@@ -119,6 +123,7 @@ const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     "reports:read",
     "settings:read",
     "search:all",
+    "grok:use",
   ],
 };
 

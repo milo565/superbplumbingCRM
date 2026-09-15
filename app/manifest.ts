@@ -3,16 +3,16 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "SuperbFlow CRM",
-    short_name: "SuperbFlow",
+    name: "Kaizen Coastal CRM",
+    short_name: "Kaizen",
     description:
-      "Job management and customer follow-up for SuperbFlow Plumbing. Who needs a hand today.",
+      "Kaizen Coastal Air Conditioning — home service in Tugun, Queensland. Gold Coast and Northern NSW. Open, closes 21:00. Call 0428 316 868.",
     start_url: "/",
     scope: "/",
     display: "standalone",
     orientation: "any",
-    background_color: "#F5F1EB",
-    theme_color: "#091825",
+    background_color: "#F6F1E8",
+    theme_color: "#0A3340",
     lang: "en-AU",
     categories: ["business", "productivity"],
     icons: [

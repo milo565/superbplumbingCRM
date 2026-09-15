@@ -6,7 +6,7 @@ export type AddressParts = {
 };
 
 export function formatMapAddress(parts: AddressParts) {
-  return `${parts.street}, ${parts.suburb} ${parts.state ?? "VIC"} ${parts.postcode}, Australia`;
+  return `${parts.street}, ${parts.suburb} ${parts.state ?? "QLD"} ${parts.postcode}, Australia`;
 }
 
 export function googleMapsSearchUrl(address: string) {

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { addDays } from "date-fns";
 import { Button, Card, PageHeader, StatusBadge } from "@/components/ui";
 import { PLAN_TYPE_LABELS } from "@/lib/constants";
-import { formatDate, melbourneDayRange } from "@/lib/format";
+import { formatDate, localDayRange } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/session";
 import { can } from "@/lib/rbac";
@@ -16,7 +16,7 @@ export default async function MaintenancePage({
 }) {
   const user = await requirePermission("maintenance:read");
   const { due } = await searchParams;
-  const { end } = melbourneDayRange();
+  const { end } = localDayRange();
   const plans = await prisma.maintenancePlan.findMany({
     where: due === "soon" ? { nextDueAt: { lte: addDays(end, 14) }, active: true } : undefined,
     include: { customer: true, property: true },

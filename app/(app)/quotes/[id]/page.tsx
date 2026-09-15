@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import { convertQuoteToJob, updateQuoteStatus } from "@/actions/crm";
 import { Button, Card, PageHeader, StatusBadge } from "@/components/ui";
 import { MoneyLine } from "@/components/lists";
-import { COMPANY, QUOTE_STATUS_LABELS } from "@/lib/constants";
+import { CompanyLetterhead } from "@/components/company-letterhead";
+import { QUOTE_STATUS_LABELS } from "@/lib/constants";
 import { formatAddress, formatDate, formatMoney } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/session";
@@ -40,16 +41,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
 
       <div className="grid lg:grid-cols-3 gap-4 mt-5">
         <Card className="lg:col-span-2 print:shadow-none">
-          <div className="flex justify-between gap-4 mb-6">
-            <div>
-              <p className="font-heading text-3xl uppercase text-navy">{COMPANY.name}</p>
-              <p className="text-sm text-[#4b5c69]">ABN {COMPANY.abn} · GST included at 10%</p>
-            </div>
-            <div className="text-right text-sm">
-              <p>Valid to {formatDate(quote.validUntil)}</p>
-              <p>{COMPANY.phoneAnthony}</p>
-            </div>
-          </div>
+          <CompanyLetterhead extra={<p>Valid to {formatDate(quote.validUntil)}</p>} />
           <p className="text-[15px] mb-4">{quote.introduction}</p>
           <MoneyLine label="Labour" value={quote.labourHours * quote.labourRate} />
           <MoneyLine label="Materials" value={quote.materialsCost} />

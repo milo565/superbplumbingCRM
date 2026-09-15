@@ -1,7 +1,7 @@
 import { format, parseISO } from "date-fns";
 import { formatInTimeZone, fromZonedTime, toZonedTime } from "date-fns-tz";
 
-export const TIMEZONE = "Australia/Melbourne";
+export const TIMEZONE = "Australia/Brisbane";
 
 export function formatDate(value?: Date | string | null, fallback = "—") {
   if (!value) return fallback;
@@ -31,7 +31,13 @@ export function formatMoney(value?: number | null, fallback = "$0.00") {
 
 export function formatPhone(value?: string | null) {
   if (!value) return "—";
-  const digits = value.replace(/\D/g, "");
+  let digits = value.replace(/\D/g, "");
+  if (digits.length === 11 && digits.startsWith("61")) {
+    digits = `0${digits.slice(2)}`;
+  }
+  if (digits.length === 9 && digits.startsWith("4")) {
+    digits = `0${digits}`;
+  }
   if (digits.length === 10 && digits.startsWith("04")) {
     return `${digits.slice(0, 4)} ${digits.slice(4, 7)} ${digits.slice(7)}`;
   }
@@ -43,6 +49,16 @@ export function formatPhone(value?: string | null) {
 
 export function telHref(value?: string | null) {
   if (!value) return undefined;
+  const digits = value.replace(/\D/g, "");
+  if (digits.length === 11 && digits.startsWith("61")) {
+    return `tel:+${digits}`;
+  }
+  if (digits.length === 10 && digits.startsWith("0")) {
+    return `tel:+61${digits.slice(1)}`;
+  }
+  if (digits.length === 9 && digits.startsWith("4")) {
+    return `tel:+61${digits}`;
+  }
   return `tel:${value.replace(/\s/g, "")}`;
 }
 
@@ -56,14 +72,14 @@ export function formatAddress(parts: {
   state?: string;
   postcode: string;
 }) {
-  return `${parts.street}, ${parts.suburb} ${parts.state ?? "VIC"} ${parts.postcode}`;
+  return `${parts.street}, ${parts.suburb} ${parts.state ?? "QLD"} ${parts.postcode}`;
 }
 
-export function melbourneNow() {
+export function localNow() {
   return toZonedTime(new Date(), TIMEZONE);
 }
 
-export function startOfMelbourneDay(date = new Date()) {
+export function startOfLocalDay(date = new Date()) {
   const zoned = toZonedTime(date, TIMEZONE);
   zoned.setHours(0, 0, 0, 0);
   return zoned;
@@ -73,7 +89,7 @@ export function formatShortDate(date: Date) {
   return format(toZonedTime(date, TIMEZONE), "EEE d MMM");
 }
 
-export function melbourneDayRange(date = new Date()) {
+export function localDayRange(date = new Date()) {
   const zoned = toZonedTime(date, TIMEZONE);
   const startLocal = new Date(zoned);
   startLocal.setHours(0, 0, 0, 0);
@@ -84,3 +100,7 @@ export function melbourneDayRange(date = new Date()) {
     end: fromZonedTime(endLocal, TIMEZONE),
   };
 }
+
+export const brisbaneDayRange = localDayRange;
+/** @deprecated use localDayRange — Gold Coast uses Australia/Brisbane */
+export const melbourneDayRange = localDayRange;

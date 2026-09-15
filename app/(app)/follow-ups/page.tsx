@@ -8,7 +8,7 @@ import {
 } from "@/actions/crm";
 import { Button, Card, Field, Input, PageHeader, Select, StatusBadge, Textarea } from "@/components/ui";
 import { CHANNEL_LABELS, FOLLOW_UP_STATUS_LABELS } from "@/lib/constants";
-import { formatDateTime, melbourneDayRange } from "@/lib/format";
+import { formatDateTime, localDayRange } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/session";
 import { can } from "@/lib/rbac";
@@ -22,7 +22,7 @@ export default async function FollowUpsPage({
 }) {
   const user = await requirePermission("followups:read");
   const { due, window } = await searchParams;
-  const { start, end } = melbourneDayRange();
+  const { start, end } = localDayRange();
   const followUps = await prisma.followUp.findMany({
     where:
       due === "today"
@@ -41,7 +41,7 @@ export default async function FollowUpsPage({
       <PageHeader
         eyebrow="Keep in touch"
         title="Follow-ups"
-        description="30-day internal → 14-day prepare → due send → 7-day call → 21-day final. Opt-outs are never contacted."
+        description="6 and 12-month filter / service reminders, then a call if they go quiet. Opt-outs are never contacted."
       />
       <div className="grid lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2 space-y-3">

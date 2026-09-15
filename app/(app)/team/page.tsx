@@ -21,7 +21,7 @@ export default async function TeamPage() {
 
   return (
     <div>
-      <PageHeader eyebrow="Crew" title="Team" description="Who is on the tools and who is holding the office." />
+      <PageHeader eyebrow="Crew" title="Team" description="Technicians on the tools and the office holding the board." />
       <div className="grid md:grid-cols-2 gap-3">
         {team.map((member) => (
           <Card key={member.id}>

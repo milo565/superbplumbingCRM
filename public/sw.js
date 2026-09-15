@@ -1,11 +1,11 @@
-const VERSION = "superbflow-shell-v1";
+const VERSION = "kaizen-coastal-shell-v1";
 const SHELL = [
   "/login",
   "/offline",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
   "/icons/apple-touch-icon.png",
-  "/superbflow-logo.png",
+  "/kaizen-logo.png",
   "/manifest.webmanifest",
 ];
 
@@ -79,7 +79,7 @@ self.addEventListener("fetch", (event) => {
           const offline = await caches.match("/offline");
           if (offline) return offline;
         }
-        return new Response("SuperbFlow is offline. Open a saved page or reconnect.", {
+        return new Response("Kaizen Coastal is offline. Open a saved page or reconnect.", {
           status: 503,
           headers: { "Content-Type": "text/plain; charset=utf-8" },
         });
