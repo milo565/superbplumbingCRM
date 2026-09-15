@@ -8,7 +8,7 @@ import {
 } from "@/actions/crm";
 import { Button, Card, Field, Input, PageHeader, Select, StatusBadge, Textarea } from "@/components/ui";
 import { CHANNEL_LABELS, FOLLOW_UP_STATUS_LABELS } from "@/lib/constants";
-import { formatDateTime, melbourneDayRange } from "@/lib/format";
+import { formatDateTime, localDayRange } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/session";
 import { can } from "@/lib/rbac";
@@ -22,7 +22,7 @@ export default async function FollowUpsPage({
 }) {
   const user = await requirePermission("followups:read");
   const { due, window } = await searchParams;
-  const { start, end } = melbourneDayRange();
+  const { start, end } = localDayRange();
   const followUps = await prisma.followUp.findMany({
     where:
       due === "today"

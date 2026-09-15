@@ -43,7 +43,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
     },
   });
   if (!job) notFound();
-  const plumbers = await prisma.user.findMany({
+  const technicians = await prisma.user.findMany({
     where: { active: true, role: { in: ["PLUMBER", "SUPERVISOR", "OWNER"] } },
   });
   const next = nextStatuses(job.status);
@@ -207,9 +207,9 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
               <Field label="Technician">
                 <Select name="assignedToId" defaultValue={job.assignedToId ?? ""}>
                   <option value="">Unassigned</option>
-                  {plumbers.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.name}
+                  {technicians.map((person) => (
+                    <option key={person.id} value={person.id}>
+                      {person.name}
                     </option>
                   ))}
                 </Select>

@@ -45,7 +45,7 @@ function clip(value?: string | null, max = 400) {
   return text.length > max ? `${text.slice(0, max)}…` : text;
 }
 
-async function plumberCanSeeCustomer(userId: string, customerId: string) {
+async function technicianCanSeeCustomer(userId: string, customerId: string) {
   const count = await prisma.job.count({
     where: { customerId, assignedToId: userId },
   });
@@ -206,7 +206,7 @@ export async function loadGrokContext(
       },
     });
     if (!customer) return { ok: false, status: 404, error: "Customer not found." };
-    if (assignedOnly && !(await plumberCanSeeCustomer(user.id, customer.id))) {
+    if (assignedOnly && !(await technicianCanSeeCustomer(user.id, customer.id))) {
       return { ok: false, status: 403, error: "You can only ask SuperbBOT about customers on your jobs." };
     }
     const jobs = assignedOnly ? customer.jobs.filter((j) => j.assignedToId === user.id) : customer.jobs;
@@ -260,7 +260,7 @@ export async function loadGrokContext(
       },
     });
     if (!property) return { ok: false, status: 404, error: "Property not found." };
-    if (assignedOnly && !(await plumberCanSeeCustomer(user.id, property.customerId))) {
+    if (assignedOnly && !(await technicianCanSeeCustomer(user.id, property.customerId))) {
       return { ok: false, status: 403, error: "You can only ask SuperbBOT about sites on your jobs." };
     }
     return {
@@ -314,7 +314,7 @@ export async function loadGrokContext(
       },
     });
     if (!quote) return { ok: false, status: 404, error: "Quote not found." };
-    if (assignedOnly && !(await plumberCanSeeCustomer(user.id, quote.customerId))) {
+    if (assignedOnly && !(await technicianCanSeeCustomer(user.id, quote.customerId))) {
       return { ok: false, status: 403, error: "You can only ask SuperbBOT about quotes on your jobs." };
     }
     return {
@@ -354,7 +354,7 @@ export async function loadGrokContext(
       include: { customer: true, property: true, job: { select: { jobNumber: true, title: true } } },
     });
     if (!invoice) return { ok: false, status: 404, error: "Invoice not found." };
-    if (assignedOnly && !(await plumberCanSeeCustomer(user.id, invoice.customerId))) {
+    if (assignedOnly && !(await technicianCanSeeCustomer(user.id, invoice.customerId))) {
       return { ok: false, status: 403, error: "You can only ask SuperbBOT about invoices on your jobs." };
     }
     return {
@@ -387,7 +387,7 @@ export async function loadGrokContext(
       include: { customer: true, property: true },
     });
     if (!plan) return { ok: false, status: 404, error: "Maintenance plan not found." };
-    if (assignedOnly && !(await plumberCanSeeCustomer(user.id, plan.customerId))) {
+    if (assignedOnly && !(await technicianCanSeeCustomer(user.id, plan.customerId))) {
       return { ok: false, status: 403, error: "You can only ask SuperbBOT about plans on your jobs." };
     }
     return {
@@ -426,7 +426,7 @@ export async function loadGrokContext(
       assignedOnly &&
       item.assignedToId !== user.id &&
       item.job?.assignedToId !== user.id &&
-      !(await plumberCanSeeCustomer(user.id, item.customerId))
+      !(await technicianCanSeeCustomer(user.id, item.customerId))
     ) {
       return { ok: false, status: 403, error: "You can only ask SuperbBOT about follow-ups on your jobs." };
     }

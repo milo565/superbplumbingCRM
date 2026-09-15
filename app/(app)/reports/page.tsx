@@ -1,7 +1,7 @@
 import { startOfMonth, startOfWeek, startOfYear } from "date-fns";
 import { Button, Card, PageHeader, SectionTitle } from "@/components/ui";
 import { CATEGORY_LABELS } from "@/lib/constants";
-import { formatMoney, melbourneDayRange } from "@/lib/format";
+import { formatMoney, localDayRange } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 import { requirePermission } from "@/lib/session";
 
@@ -9,7 +9,7 @@ export const metadata = { title: "Reports" };
 
 export default async function ReportsPage() {
   await requirePermission("reports:read");
-  const { start } = melbourneDayRange();
+  const { start } = localDayRange();
   const [jobs, invoices, quotes, customers] = await Promise.all([
     prisma.job.findMany({ include: { assignedTo: true } }),
     prisma.invoice.findMany(),

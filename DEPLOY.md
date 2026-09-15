@@ -1,10 +1,16 @@
 # Go live — Kaizen Coastal CRM on Vercel
 
-Short path: Neon Postgres + Vercel + this repo. Local demo still uses Docker Postgres (see README).
+**Kaizen Coastal Air Conditioning** — home service in Tugun, Queensland. Gold Coast and Northern NSW.
+
+- Address: The Parc, 2 Inland Dr, Tugun QLD 4224
+- Phone: 0428 316 868 (`tel:+61428316868`)
+- Hours: Open, closes 21:00 (Mon–Sun 07:00–21:00)
+
+Short path: Neon Postgres + Vercel + this repo. Local demo still uses Docker Postgres (see README). The GitHub repo name is still `superbplumbingCRM`.
 
 ## 1. Use this code
 
-Merge [PR #1](https://github.com/milo565/superbplumbingCRM/pull/1) into `main`, or deploy the `cursor/superbflow-crm-e340` branch.
+Deploy the `cursor/superbflow-crm-e340` branch, or `main` once this rebrand is merged.
 
 ## 2. Create Postgres (Neon)
 

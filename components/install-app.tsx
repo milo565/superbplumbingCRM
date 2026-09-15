@@ -30,7 +30,10 @@ export function InstallAppBanner({ compact = false }: { compact?: boolean }) {
   useEffect(() => {
     setIos(isIos());
     setStandalone(isStandalone());
-    setHidden(localStorage.getItem("sf-install-dismissed") === "1");
+    setHidden(
+      localStorage.getItem("kaizen-install-dismissed") === "1" ||
+        localStorage.getItem("sf-install-dismissed") === "1",
+    );
 
     function onPrompt(event: Event) {
       event.preventDefault();
@@ -50,7 +53,7 @@ export function InstallAppBanner({ compact = false }: { compact?: boolean }) {
   }
 
   function dismiss() {
-    localStorage.setItem("sf-install-dismissed", "1");
+    localStorage.setItem("kaizen-install-dismissed", "1");
     setHidden(true);
   }
 

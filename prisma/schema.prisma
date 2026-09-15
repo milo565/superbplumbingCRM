@@ -12,6 +12,7 @@ enum Role {
   OWNER
   OFFICE_ADMIN
   SUPERVISOR
+  // Technician in the UI. Enum value kept so existing databases do not need a Role rename.
   PLUMBER
   SALES
 }
@@ -145,7 +146,7 @@ model User {
   updatedAt       DateTime @updatedAt
 
   managedCustomers Customer[]       @relation("AccountManager")
-  assignedJobs     Job[]            @relation("AssignedPlumber")
+  assignedJobs     Job[]            @relation("AssignedTechnician")
   createdJobs      Job[]            @relation("JobCreatedBy")
   createdQuotes    Quote[]          @relation("QuoteCreatedBy")
   assignedFollowUps FollowUp[]      @relation("FollowUpOwner")
@@ -276,7 +277,7 @@ model Job {
   propertyId   String
   property     Property  @relation(fields: [propertyId], references: [id])
   assignedToId String?
-  assignedTo   User?     @relation("AssignedPlumber", fields: [assignedToId], references: [id])
+  assignedTo   User?     @relation("AssignedTechnician", fields: [assignedToId], references: [id])
   createdById  String?
   createdBy    User?     @relation("JobCreatedBy", fields: [createdById], references: [id])
   quoteId      String?

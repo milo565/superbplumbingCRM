@@ -101,5 +101,6 @@ export function localDayRange(date = new Date()) {
   };
 }
 
-/** @deprecated use localDayRange */
+export const brisbaneDayRange = localDayRange;
+/** @deprecated use localDayRange — Gold Coast uses Australia/Brisbane */
 export const melbourneDayRange = localDayRange;

@@ -90,7 +90,7 @@ No map secrets are required for the seeded Tugun / Coolangatta / Burleigh / Robi
 
 ## SuperbBOT
 
-**SuperbBOT** sits in the header. It reads the current customer, job, quote, property or follow-up and can draft SMS/email, summarise a call, suggest the next job status, or explain a dashboard card. It is trained in-prompt as a Kaizen Coastal air conditioning assistant — not plumbing.
+**SuperbBOT** sits in the header. It reads the current customer, job, quote, property or follow-up and can draft SMS/email, summarise a call, suggest the next job status, or explain a dashboard card. The system prompt is Kaizen Coastal air conditioning (Tugun, Gold Coast and Northern NSW) — splits, ducted, cassette, repair and service.
 
 - Server-only: set `XAI_API_KEY` (optional `XAI_MODEL`, default `grok-4`). Get a key at [console.x.ai](https://console.x.ai).
 - The key never reaches the browser. Settings shows **configured** or **Add XAI_API_KEY to enable SuperbBOT**.
@@ -120,13 +120,15 @@ Kaizen Coastal CRM is a Progressive Web App. Staff can install it on a phone or 
 - Phones talking to your laptop need HTTPS or a trusted local tunnel. A deployed HTTPS URL is the real van setup.
 - The service worker caches the app shell, icons, and recently opened pages (dashboard / jobs). It does **not** cache `/api/auth`, so login still needs a network. Full offline job sync is not in this demo.
 
-Theme colour `#0A3340`, background `#F6F1E8`, display `standalone`. Icons live in `public/icons/`.
+Theme colour `#0A3340`, background `#F6F1E8`, display `standalone`. Icons live in `public/icons/`. Manifest description includes Tugun, Gold Coast / Northern NSW, closes 21:00, and 0428 316 868.
 
 ## Locale
 
 - Dates: `DD/MM/YYYY`
 - Money: AUD including GST at 10%
 - Timezone: Australia/Brisbane (Gold Coast)
+- Phone: 0428 316 868 (`tel:+61428316868`)
+- Hours: Open, closes 21:00 (trade hours Mon–Sun 07:00–21:00)
 
 ## Scripts
 

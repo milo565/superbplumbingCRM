@@ -2,7 +2,7 @@ import Link from "next/link";
 import { addDays, addWeeks, eachDayOfInterval, endOfMonth, format, startOfMonth, startOfWeek } from "date-fns";
 import { Button, Card, PageHeader, StatusBadge } from "@/components/ui";
 import { JOB_STATUS_LABELS } from "@/lib/constants";
-import { formatTime, melbourneDayRange } from "@/lib/format";
+import { formatTime, localDayRange } from "@/lib/format";
 import { prisma } from "@/lib/prisma";
 import { jobScopeWhere } from "@/actions/shared";
 import { statusTone } from "@/lib/workflow";
@@ -17,7 +17,7 @@ export default async function CalendarPage({
   const { view = "week", date } = await searchParams;
   const { where } = await jobScopeWhere();
   const anchor = date ? new Date(date) : new Date();
-  const { start: todayStart } = melbourneDayRange(anchor);
+  const { start: todayStart } = localDayRange(anchor);
 
   const rangeStart =
     view === "day"

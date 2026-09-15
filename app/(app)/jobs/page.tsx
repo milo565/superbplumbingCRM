@@ -37,7 +37,7 @@ export default async function JobsPage({
       <PageHeader
         eyebrow="Workflow"
         title="Jobs"
-        description="From first call to paid and booked for the next look-over."
+        description="Split, ducted and cassette work from first call through to paid, then the next filter service."
         actions={can(user.role, "jobs:write") ? <Button href="/jobs/new">New job</Button> : null}
       />
       <div className="flex gap-2 overflow-x-auto pb-3 mb-3">

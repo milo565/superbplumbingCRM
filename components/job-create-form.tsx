@@ -25,13 +25,13 @@ export type JobFormCustomer = {
 
 export function JobCreateForm({
   customers,
-  plumbers,
+  technicians,
   defaultCustomerId,
   defaultPropertyId,
   enquiry,
 }: {
   customers: JobFormCustomer[];
-  plumbers: { id: string; name: string }[];
+  technicians: { id: string; name: string }[];
   defaultCustomerId?: string;
   defaultPropertyId?: string;
   enquiry?: boolean;
@@ -122,9 +122,9 @@ export function JobCreateForm({
           <Field label="Assign technician">
             <Select name="assignedToId">
               <option value="">Unassigned</option>
-              {plumbers.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
+              {technicians.map((person) => (
+                <option key={person.id} value={person.id}>
+                  {person.name}
                 </option>
               ))}
             </Select>
