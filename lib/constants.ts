@@ -13,23 +13,29 @@ import type {
 } from "@prisma/client";
 
 export const COMPANY = {
-  name: "SuperbFlow Plumbing",
-  shortName: "SuperbFlow",
-  tagline: "No drama. Just flow.",
-  website: "https://superbflowplumbing.com.au",
-  email: "Superbflowplumbing@gmail.com",
-  abn: "12 345 678 901",
-  phoneAnthony: "0412 121 772",
-  phoneNathan: "0410 926 968",
-  serviceAreas:
-    "Melbourne west, north, east and inner suburbs — 150 km from Taylors Lakes and Wheelers Hill",
+  name: "Kaizen Coastal Air Conditioning",
+  shortName: "Kaizen Coastal",
+  appName: "Kaizen Coastal CRM",
+  homeScreenName: "Kaizen",
+  tagline: "The perfect temperature all year round.",
+  website: "https://hipages.com.au/connect/kaizencoastalairconditioning",
+  email: "kai@kaizencoastal.com.au",
+  abn: "18 871 604 073",
+  phonePrimary: "0420 551 880",
+  phoneOffice: "07 5524 3190",
+  arcLicence: "L188734",
+  nswLicence: "473916C",
+  base: "Tugun QLD 4224",
+  serviceAreas: "Gold Coast (QLD) and Northern NSW — Tugun base, Tweed, Banora Point and the coastal corridor",
 };
+
+export const DEMO_PASSWORD = "KaizenCoastal1!";
 
 export const ROLE_LABELS: Record<Role, string> = {
   OWNER: "Business owner",
   OFFICE_ADMIN: "Office administrator",
-  SUPERVISOR: "Plumbing supervisor",
-  PLUMBER: "Plumber / technician",
+  SUPERVISOR: "Field supervisor",
+  PLUMBER: "Technician",
   SALES: "Sales & follow-up",
 };
 
@@ -47,11 +53,13 @@ export const CUSTOMER_STATUS_LABELS: Record<CustomerStatus, string> = {
 };
 
 export const CATEGORY_LABELS: Record<ServiceCategory, string> = {
-  GENERAL_PLUMBING: "General plumbing",
-  GAS_FITTING: "Gas fitting",
-  DRAINAGE: "Drainage",
-  ROOFING: "Roofing",
-  MAINTENANCE: "Maintenance",
+  SPLIT_INSTALL: "Split system install",
+  DUCTED_INSTALL: "Ducted install",
+  CASSETTE_INSTALL: "Cassette install",
+  REPAIR: "Repair",
+  SERVICE: "Filter clean / service",
+  WARRANTY: "Warranty service",
+  COMMERCIAL_MAINTENANCE: "Commercial AC maintenance",
 };
 
 export const PRIORITY_LABELS: Record<JobPriority, string> = {
@@ -71,7 +79,7 @@ export const JOB_STATUS_LABELS: Record<JobStatus, string> = {
   CUSTOMER_FOLLOW_UP: "Customer follow-up",
   APPROVED: "Approved",
   SCHEDULED: "Scheduled",
-  PLUMBER_ASSIGNED: "Plumber assigned",
+  PLUMBER_ASSIGNED: "Technician assigned",
   ON_THE_WAY: "On the way",
   IN_PROGRESS: "In progress",
   AWAITING_PARTS: "Awaiting parts",
@@ -131,11 +139,13 @@ export const PLAN_TYPE_LABELS: Record<MaintenancePlanType, string> = {
 };
 
 export const SUGGESTED_FOLLOW_UP_MONTHS: Record<ServiceCategory, number> = {
-  GENERAL_PLUMBING: 12,
-  GAS_FITTING: 12,
-  DRAINAGE: 9,
-  ROOFING: 6,
-  MAINTENANCE: 6,
+  SPLIT_INSTALL: 12,
+  DUCTED_INSTALL: 12,
+  CASSETTE_INSTALL: 12,
+  REPAIR: 6,
+  SERVICE: 6,
+  WARRANTY: 12,
+  COMMERCIAL_MAINTENANCE: 3,
 };
 
 export const NAV_ITEMS = [
@@ -144,7 +154,7 @@ export const NAV_ITEMS = [
   { href: "/properties", label: "Properties and sites", icon: "Building2" },
   { href: "/enquiries", label: "New enquiries", icon: "Inbox" },
   { href: "/quotes", label: "Quotes", icon: "FileText" },
-  { href: "/jobs", label: "Jobs", icon: "Wrench" },
+  { href: "/jobs", label: "Jobs", icon: "Wind" },
   { href: "/calendar", label: "Calendar and scheduling", icon: "CalendarDays" },
   { href: "/previous-work", label: "Previous work", icon: "History" },
   { href: "/follow-ups", label: "Follow-ups", icon: "PhoneForwarded" },
@@ -156,8 +166,8 @@ export const NAV_ITEMS = [
 ] as const;
 
 export const TONE = {
-  noDrama: "No drama. Just flow.",
-  sorted: "Let's get it sorted.",
-  holdsUp: "Work that holds up.",
-  nextStep: "Next sensible step.",
+  tagline: "The perfect temperature all year round.",
+  sorted: "Let's get the temperature right.",
+  holdsUp: "Professional, local and efficient.",
+  nextStep: "Book the next service while you're here.",
 };

@@ -4,18 +4,18 @@ export const XAI_CHAT_URL = "https://api.x.ai/v1/chat/completions";
 export const DEFAULT_XAI_MODEL = "grok-4";
 export const ASSISTANT_NAME = "SuperbBOT";
 
-export const GROK_SYSTEM_PROMPT = `You are SuperbBOT, the in-app assistant for SuperbFlow Plumbing (superbflowplumbing.com.au) — a Melbourne plumbing company serving residential, commercial and industrial work. You are powered by Grok (xAI). Staff call you SuperbBOT, not Grok.
+export const GROK_SYSTEM_PROMPT = `You are SuperbBOT, the in-app assistant for Kaizen Coastal Air Conditioning (also Kaizen Coastal Airconditioning) — a Gold Coast and Northern NSW air conditioning trade based in Tugun QLD. Hipages: https://hipages.com.au/connect/kaizencoastalairconditioning. You are powered by Grok (xAI). Staff call you SuperbBOT, not Grok.
 
-Tone: direct, capable, trade-focused. "No drama. Just flow." Australian English. Dates DD/MM/YYYY. Money AUD. GST is 10%. Timezone Australia/Melbourne.
+Tone: professional, local, efficient, trustworthy. Tagline: "The perfect temperature all year round." Australian English. Dates DD/MM/YYYY. Money AUD. GST is 10%. Timezone Australia/Brisbane.
 
-You help office staff and field plumbers with jobs, customers, quotes, follow-ups, maintenance and the dashboard. Keep answers short enough to read on a phone.
+You help office staff and field technicians with jobs, customers, quotes, follow-ups, maintenance and the dashboard. Work is residential and commercial air conditioning: split, ducted and cassette supply/install, repair, filter clean/service, refrigerant reclaim notes, warranty and commercial maintenance. Keep answers short enough to read on a phone.
 
 Hard rules:
-- Do not invent prices, certificate numbers, licence details, or work that is not in the record context.
+- Do not invent prices, certificate numbers, ARC/licence details, refrigerant charges, or work that is not in the record context.
 - You cannot send SMS, email or change CRM records. Draft copy only. Staff must review and approve anything that leaves the office.
 - If marketingOptOut is true, or marketingConsent is false, do not draft marketing SMS/email. Say so clearly. Operational job updates may still be drafted, but flag consent.
 - Never ask for or reveal API keys, passwords or secrets.
-- When suggesting a job status, only use SuperbFlow statuses supplied in the context (or the official workflow list).
+- When suggesting a job status, only use Kaizen Coastal CRM statuses supplied in the context (or the official workflow list).
 - Quote and invoice figures already on the record may be restated; do not invent new ones. Mention GST inclusive vs exclusive when talking money.
 - If context is missing, ask one tight question instead of guessing.`;
 
@@ -99,7 +99,7 @@ export function grokContextLabel(ref: GrokRef) {
     case "dashboard":
       return "Dashboard";
     default:
-      return "SuperbFlow";
+      return "Kaizen Coastal";
   }
 }
 
@@ -110,7 +110,7 @@ export function grokChips(type: GrokRecordType): GrokChip[] {
     "Draft a short follow-up email (subject + body). Respect consent and opt-out. Staff will approve before sending. Do not invent prices.";
   const call =
     "Summarise this record and previous work so I can call. Under 10 short lines. Do not invent facts.";
-  const maintenance = `Suggest a maintenance follow-up interval from the service type. Use SuperbFlow defaults if they fit (gas/general ${SUGGESTED_FOLLOW_UP_MONTHS.GAS_FITTING} months, drainage ${SUGGESTED_FOLLOW_UP_MONTHS.DRAINAGE}, roofing/maintenance ${SUGGESTED_FOLLOW_UP_MONTHS.ROOFING}).`;
+  const maintenance = `Suggest a maintenance follow-up interval from the service type. Use Kaizen Coastal defaults if they fit (split/ducted/cassette/warranty ${SUGGESTED_FOLLOW_UP_MONTHS.SPLIT_INSTALL} months, repair/filter service ${SUGGESTED_FOLLOW_UP_MONTHS.SERVICE}, commercial maintenance ${SUGGESTED_FOLLOW_UP_MONTHS.COMMERCIAL_MAINTENANCE}).`;
 
   switch (type) {
     case "job":
@@ -144,7 +144,7 @@ export function grokChips(type: GrokRecordType): GrokChip[] {
           id: "van",
           label: "Van brief",
           prompt:
-            "Summarise site access, hazards, meters and recommendations for the plumber on the way. Short bullets.",
+            "Summarise site access, hazards, outdoor unit, isolator and recommendations for the technician on the way. Short bullets.",
         },
         { id: "maint", label: "Maintenance", prompt: maintenance },
         { id: "call", label: "Call brief", prompt: call },
@@ -188,7 +188,7 @@ export function grokChips(type: GrokRecordType): GrokChip[] {
           id: "cards",
           label: "Explain cards",
           prompt:
-            "Explain the SuperbFlow dashboard cards in plain English and what the office should do first today.",
+            "Explain the Kaizen Coastal dashboard cards in plain English and what the office should do first today.",
         },
         {
           id: "triage",
@@ -203,7 +203,7 @@ export function grokChips(type: GrokRecordType): GrokChip[] {
           id: "help",
           label: "What can you do?",
           prompt:
-            "What can you help SuperbFlow staff with on this screen? Keep it practical.",
+            "What can you help Kaizen Coastal staff with on this screen? Keep it practical.",
         },
         {
           id: "cards",

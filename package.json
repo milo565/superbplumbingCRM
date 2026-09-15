@@ -1,8 +1,8 @@
 {
-  "name": "superbflow-crm",
+  "name": "kaizen-coastal-crm",
   "version": "1.0.0",
   "private": true,
-  "description": "SuperbFlow CRM — job management and customer follow-up for SuperbFlow Plumbing",
+  "description": "Kaizen Coastal CRM — job management and customer follow-up for Kaizen Coastal Air Conditioning",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",

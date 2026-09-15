@@ -136,7 +136,7 @@ export function GrokAssistant({
         <header className="bg-navy text-white px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 rounded-t-3xl lg:rounded-none">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="text-[11px] uppercase tracking-wide text-[#9cb4c4]">SuperbFlow assistant</p>
+              <p className="text-[11px] uppercase tracking-wide text-[#9cb4c4]">Kaizen Coastal assistant</p>
               <h2 id="grok-title" className="font-heading text-2xl uppercase leading-none mt-1">
                 {ASSISTANT_NAME}
               </h2>
@@ -191,7 +191,7 @@ export function GrokAssistant({
             <div ref={listRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
               {turns.length === 0 && !error ? (
                 <p className="text-sm text-[#4b5c69]">
-                  No drama. Ask for a call brief, the next job status, or a follow-up draft.
+                  Keep it practical. Ask for a call brief, the next job status, or a service follow-up draft.
                   SuperbBOT uses this page&apos;s record — it does not send messages.
                 </p>
               ) : null}

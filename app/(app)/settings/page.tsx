@@ -30,9 +30,9 @@ export default async function SettingsPage() {
       />
       <div className="grid lg:grid-cols-2 gap-4">
         <Card id="install" className="lg:col-span-2 bg-navy text-white border-0">
-          <h2 className="font-heading text-2xl uppercase mb-2">Install SuperbFlow</h2>
+          <h2 className="font-heading text-2xl uppercase mb-2">Install Kaizen</h2>
           <p className="text-sm text-[#c5d6e2]">
-            Put the CRM on the home screen so plumbers can open jobs, maps and follow-ups like an app.
+            Put the CRM on the home screen so technicians can open jobs, maps and follow-ups like an app.
             Pages already visited (dashboard, jobs) can open from the cached shell if the van drops signal.
             Full offline sync can come later — sign-in still needs a connection.
           </p>
@@ -40,7 +40,7 @@ export default async function SettingsPage() {
             <div className="rounded-xl bg-white/8 p-4">
               <p className="font-semibold">iPhone / iPad</p>
               <ol className="list-decimal pl-5 mt-2 space-y-1 text-[#c5d6e2]">
-                <li>Open SuperbFlow in Safari</li>
+                <li>Open Kaizen in Safari</li>
                 <li>Tap Share</li>
                 <li>Tap Add to Home Screen</li>
                 <li>Tap Add — launch fullscreen from the icon</li>
@@ -139,7 +139,7 @@ export default async function SettingsPage() {
             ))}
           </div>
           <p className="text-xs text-[#5b6b78] mt-3">
-            Tokens: {"{{contactName}}"} {"{{propertyAddress}}"} {"{{service}}"} {"{{plumberName}}"} {"{{phone}}"}
+            Tokens: {"{{contactName}}"} {"{{propertyAddress}}"} {"{{service}}"} {"{{technicianName}}"} {"{{phone}}"}
           </p>
         </Card>
         <Card className="lg:col-span-2">

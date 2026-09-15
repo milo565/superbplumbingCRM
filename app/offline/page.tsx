@@ -6,7 +6,7 @@ export default function OfflinePage() {
   return (
     <div className="min-h-dvh bg-navy text-white flex items-center justify-center p-6">
       <div className="max-w-md text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue">SuperbFlow CRM</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue">Kaizen Coastal CRM</p>
         <h1 className="font-heading text-4xl uppercase tracking-wide mt-2">You are offline</h1>
         <p className="mt-3 text-[#c5d6e2]">
           The app shell is still here. Open a page you have already visited — dashboard or jobs

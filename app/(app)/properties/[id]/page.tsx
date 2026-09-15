@@ -95,18 +95,34 @@ export default async function PropertyDetailPage({
               <Field label="Keys / lockbox">
                 <Input name="keysLockbox" defaultValue={property.keysLockbox ?? ""} />
               </Field>
-              <Field label="Water meter">
-                <Input name="waterMeter" defaultValue={property.waterMeter ?? ""} />
+              <Field label="Outdoor unit">
+                <Input name="outdoorUnit" defaultValue={property.outdoorUnit ?? ""} />
               </Field>
-              <Field label="Shut-off">
-                <Input name="shutOffLocation" defaultValue={property.shutOffLocation ?? ""} />
+              <Field label="Isolator location">
+                <Input name="isolatorLocation" defaultValue={property.isolatorLocation ?? ""} />
               </Field>
-              <Field label="Hot water">
-                <Input name="hotWaterSystem" defaultValue={property.hotWaterSystem ?? ""} />
+              <Field label="Indoor heads">
+                <Input name="indoorHeads" defaultValue={property.indoorHeads ?? ""} />
               </Field>
-              <Field label="Gas">
-                <Input name="gasNotes" defaultValue={property.gasNotes ?? ""} />
+              <Field label="Refrigerant">
+                <Input name="refrigerantType" defaultValue={property.refrigerantType ?? ""} />
               </Field>
+              <Field label="Mount notes">
+                <Textarea name="mountNotes" defaultValue={property.mountNotes ?? ""} />
+              </Field>
+              <Field label="Model / serial">
+                <Textarea name="modelSerial" defaultValue={property.modelSerial ?? ""} />
+              </Field>
+              <div className="md:col-span-2">
+                <Field label="Filter / service dates">
+                  <Input name="filterDates" defaultValue={property.filterDates ?? ""} />
+                </Field>
+              </div>
+              <div className="md:col-span-2">
+                <Field label="Compliance / warranty">
+                  <Textarea name="complianceNotes" defaultValue={property.complianceNotes ?? ""} />
+                </Field>
+              </div>
               <div className="md:col-span-2">
                 <Field label="Access">
                   <Textarea name="accessNotes" defaultValue={property.accessNotes ?? ""} />
@@ -118,17 +134,6 @@ export default async function PropertyDetailPage({
               <Field label="Pets / hazards">
                 <Textarea name="petsHazards" defaultValue={property.petsHazards ?? ""} />
               </Field>
-              <Field label="Roofing / drainage">
-                <Textarea name="roofingDrainage" defaultValue={property.roofingDrainage ?? ""} />
-              </Field>
-              <Field label="Fixtures">
-                <Textarea name="fixtures" defaultValue={property.fixtures ?? ""} />
-              </Field>
-              <div className="md:col-span-2">
-                <Field label="Compliance">
-                  <Textarea name="complianceNotes" defaultValue={property.complianceNotes ?? ""} />
-                </Field>
-              </div>
               <div className="md:col-span-2">
                 <Field label="Recommendations">
                   <Textarea name="recommendations" defaultValue={property.recommendations ?? ""} />

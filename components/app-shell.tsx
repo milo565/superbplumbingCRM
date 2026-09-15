@@ -21,11 +21,11 @@ import {
   Search,
   Settings,
   Users,
-  Wrench,
+  Wind,
   X,
 } from "lucide-react";
 import type { Role } from "@prisma/client";
-import { COMPANY, NAV_ITEMS, ROLE_LABELS, TONE } from "@/lib/constants";
+import { COMPANY, NAV_ITEMS, ROLE_LABELS } from "@/lib/constants";
 import { navVisible } from "@/lib/rbac";
 import { cn } from "@/lib/utils";
 import { AskGrokButton, GrokAssistant } from "@/components/grok-assistant";
@@ -38,7 +38,7 @@ const ICONS = {
   Building2,
   Inbox,
   FileText,
-  Wrench,
+  Wind,
   CalendarDays,
   History,
   PhoneForwarded,
@@ -115,17 +115,17 @@ export function AppShell({
         <div className="flex items-center justify-between px-4 py-4">
           <Link href="/dashboard" className="flex items-center gap-3">
             <Image
-              src="/superbflow-logo.png"
-              alt="SuperbFlow Plumbing"
+              src="/kaizen-logo.png"
+              alt="Kaizen Coastal Air Conditioning"
               width={44}
-              height={36}
-              className="h-9 w-auto brightness-0 invert"
+              height={44}
+              className="h-9 w-9 rounded-lg"
             />
             <div>
               <p className="font-heading text-xl uppercase tracking-wide leading-none">
-                SuperbFlow
+                Kaizen
               </p>
-              <p className="text-[11px] text-[#9cb4c4] mt-1">CRM · {TONE.noDrama}</p>
+              <p className="text-[11px] text-[#9cb4c4] mt-1">CRM · Gold Coast &amp; Nth NSW</p>
             </div>
           </Link>
           <button className="lg:hidden p-2" onClick={() => setOpen(false)} aria-label="Close menu">
@@ -134,7 +134,7 @@ export function AppShell({
         </div>
         <div className="px-4 pb-4">
           <p className="text-xs text-[#8aa0b0]">
-            {COMPANY.phoneAnthony} · {COMPANY.phoneNathan}
+            {COMPANY.phonePrimary} · {COMPANY.base}
           </p>
         </div>
         <div className="flex-1 overflow-y-auto">{nav}</div>
@@ -178,14 +178,14 @@ export function AppShell({
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search customers, jobs, sites, quotes…"
-                  className="w-full rounded-xl bg-[#102938] text-white placeholder:text-[#7f96a6] pl-9 pr-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue"
+                  className="w-full rounded-xl bg-navy-2 text-white placeholder:text-[#7f96a6] pl-9 pr-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue"
                 />
               </label>
             </form>
             {showGrok ? <AskGrokButton compact onClick={() => setGrokOpen(true)} /> : null}
             <InstallAppButton />
             <a
-              href="tel:0412121772"
+              href={`tel:${COMPANY.phonePrimary.replace(/\s/g, "")}`}
               className="hidden sm:inline-flex rounded-xl bg-orange px-3 py-2.5 text-sm font-semibold text-white"
             >
               24/7
@@ -205,7 +205,7 @@ export function AppShell({
       <nav className="lg:hidden fixed bottom-0 inset-x-0 z-20 bg-navy text-white grid grid-cols-5 border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
         {[
           { href: "/dashboard", label: "Home", icon: LayoutDashboard },
-          { href: "/jobs", label: "Jobs", icon: Wrench },
+          { href: "/jobs", label: "Jobs", icon: Wind },
           { href: "/calendar", label: "Today", icon: CalendarDays },
           { href: "/customers", label: "People", icon: Users },
           { href: "/follow-ups", label: "Follow", icon: PhoneForwarded },

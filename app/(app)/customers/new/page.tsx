@@ -55,7 +55,7 @@ export default async function NewCustomerPage() {
             <Input name="billingSuburb" required />
           </Field>
           <Field label="State">
-            <Input name="billingState" defaultValue="VIC" />
+            <Input name="billingState" defaultValue="QLD" />
           </Field>
           <Field label="Postcode">
             <Input name="billingPostcode" required />

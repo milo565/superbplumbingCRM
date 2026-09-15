@@ -60,11 +60,13 @@ enum JobPriority {
 }
 
 enum ServiceCategory {
-  GENERAL_PLUMBING
-  GAS_FITTING
-  DRAINAGE
-  ROOFING
-  MAINTENANCE
+  SPLIT_INSTALL
+  DUCTED_INSTALL
+  CASSETTE_INSTALL
+  REPAIR
+  SERVICE
+  WARRANTY
+  COMMERCIAL_MAINTENANCE
 }
 
 enum QuoteStatus {
@@ -162,7 +164,7 @@ model Customer {
   email              String?
   billingStreet      String
   billingSuburb      String
-  billingState       String         @default("VIC")
+  billingState       String         @default("QLD")
   billingPostcode    String
   preferredContact   String         @default("phone")
   source             String?
@@ -199,7 +201,7 @@ model Property {
   label            String?
   street           String
   suburb           String
-  state            String       @default("VIC")
+  state            String       @default("QLD")
   postcode         String
   type             CustomerType
   siteContactName  String?
@@ -209,12 +211,13 @@ model Property {
   parkingNotes     String?
   keysLockbox      String?
   petsHazards      String?
-  waterMeter       String?
-  shutOffLocation  String?
-  hotWaterSystem   String?
-  gasNotes         String?
-  roofingDrainage  String?
-  fixtures         String?
+  outdoorUnit      String?
+  isolatorLocation String?
+  indoorHeads      String?
+  refrigerantType  String?
+  mountNotes       String?
+  modelSerial      String?
+  filterDates      String?
   complianceNotes  String?
   recommendations  String?
   createdAt        DateTime     @default(now())

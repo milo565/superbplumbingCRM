@@ -41,7 +41,7 @@ export default async function FollowUpsPage({
       <PageHeader
         eyebrow="Keep in touch"
         title="Follow-ups"
-        description="30-day internal → 14-day prepare → due send → 7-day call → 21-day final. Opt-outs are never contacted."
+        description="6 and 12-month filter / service reminders, then a call if they go quiet. Opt-outs are never contacted."
       />
       <div className="grid lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2 space-y-3">

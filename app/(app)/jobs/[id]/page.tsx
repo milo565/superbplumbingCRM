@@ -103,7 +103,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
           {can(user.role, "jobs:write") ? (
             <Card>
               <h2 className="font-heading text-2xl uppercase tracking-wide text-navy mb-3">
-                Next sensible step
+                Next job step
               </h2>
               <div className="flex flex-wrap gap-2 mb-4">
                 {next.map((status) => (
@@ -204,7 +204,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
                   ))}
                 </Select>
               </Field>
-              <Field label="Plumber">
+              <Field label="Technician">
                 <Select name="assignedToId" defaultValue={job.assignedToId ?? ""}>
                   <option value="">Unassigned</option>
                   {plumbers.map((p) => (
@@ -292,7 +292,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
               <Meta label="When" value={formatDateTime(job.appointmentStart)} />
             </div>
             <div className="mt-3">
-              <Meta label="Plumber" value={job.assignedTo?.name} />
+              <Meta label="Technician" value={job.assignedTo?.name} />
             </div>
             <div className="mt-3">
               <Meta label="Checked in" value={formatDateTime(job.checkedInAt)} />

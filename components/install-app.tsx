@@ -65,7 +65,7 @@ export function InstallAppBanner({ compact = false }: { compact?: boolean }) {
       <div className="flex items-start gap-3">
         <Download className="text-orange shrink-0 mt-0.5" size={18} />
         <div className="flex-1 min-w-0">
-          <p className="font-semibold">Install SuperbFlow</p>
+          <p className="font-semibold">Install Kaizen</p>
           {ios ? (
             <p className="text-[13px] text-[#c5d6e2] mt-1">
               iPhone / iPad: tap <Share className="inline" size={12} /> Share, then{" "}

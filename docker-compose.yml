@@ -1,21 +1,21 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: superbflow-postgres
+    container_name: kaizen-coastal-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: superbflow
-      POSTGRES_PASSWORD: superbflow
-      POSTGRES_DB: superbflow
+      POSTGRES_USER: kaizen
+      POSTGRES_PASSWORD: kaizen
+      POSTGRES_DB: kaizen
     ports:
       - "5432:5432"
     volumes:
-      - superbflow_pg:/var/lib/postgresql/data
+      - kaizen_pg:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U superbflow -d superbflow"]
+      test: ["CMD-SHELL", "pg_isready -U kaizen -d kaizen"]
       interval: 5s
       timeout: 5s
       retries: 10
 
 volumes:
-  superbflow_pg:
+  kaizen_pg:

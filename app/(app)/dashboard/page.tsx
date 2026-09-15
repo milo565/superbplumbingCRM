@@ -133,7 +133,7 @@ export default async function DashboardPage() {
     <div>
       <PageHeader
         eyebrow="Today"
-        title="Who needs a hand."
+        title="Today's board."
         description={`${TONE.nextStep} ${assignedOnly ? "Showing jobs assigned to you." : "Whole crew view."}`}
       />
 
@@ -198,7 +198,7 @@ export default async function DashboardPage() {
           </div>
         </Card>
         <Card>
-          <SectionTitle>Workload by plumber</SectionTitle>
+          <SectionTitle>Workload by technician</SectionTitle>
           <div className="space-y-3">
             {plumberLoad.map((person) => (
               <div key={person.id} className="flex items-center justify-between text-sm">

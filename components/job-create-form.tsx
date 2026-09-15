@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { createJob } from "@/actions/crm";
 import { MapPanel } from "@/components/map-panel";
 import { Button, Card, Field, Input, Select, Textarea } from "@/components/ui";
+import { CATEGORY_LABELS } from "@/lib/constants";
 
 export type JobFormCustomer = {
   id: string;
@@ -98,15 +99,15 @@ export function JobCreateForm({
             </Select>
           </Field>
           <Field label="Title">
-            <Input name="title" required placeholder="Burst pipe — kitchen supply" />
+            <Input name="title" required placeholder="Split system install — living room" />
           </Field>
           <Field label="Category">
-            <Select name="category" defaultValue="GENERAL_PLUMBING">
-              <option value="GENERAL_PLUMBING">General plumbing</option>
-              <option value="GAS_FITTING">Gas fitting</option>
-              <option value="DRAINAGE">Drainage</option>
-              <option value="ROOFING">Roofing</option>
-              <option value="MAINTENANCE">Maintenance</option>
+            <Select name="category" defaultValue="SPLIT_INSTALL">
+              {Object.entries(CATEGORY_LABELS).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
             </Select>
           </Field>
           <Field label="Priority">
@@ -118,7 +119,7 @@ export function JobCreateForm({
               <option value="EMERGENCY">Emergency</option>
             </Select>
           </Field>
-          <Field label="Assign plumber">
+          <Field label="Assign technician">
             <Select name="assignedToId">
               <option value="">Unassigned</option>
               {plumbers.map((p) => (

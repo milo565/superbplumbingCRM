@@ -18,16 +18,16 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "SuperbFlow CRM",
-    template: "%s · SuperbFlow CRM",
+    default: "Kaizen Coastal CRM",
+    template: "%s · Kaizen Coastal CRM",
   },
   description:
-    "Job management and customer follow-up for SuperbFlow Plumbing — Melbourne plumbing and property services.",
-  applicationName: "SuperbFlow CRM",
+    "Job management and customer follow-up for Kaizen Coastal Air Conditioning — Gold Coast and Northern NSW.",
+  applicationName: "Kaizen Coastal CRM",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
-    title: "SuperbFlow",
+    title: "Kaizen",
     statusBarStyle: "black-translucent",
   },
   icons: {
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#091825",
+  themeColor: "#0A3340",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

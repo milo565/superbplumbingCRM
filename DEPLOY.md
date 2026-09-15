@@ -1,4 +1,4 @@
-# Go live — SuperbFlow CRM on Vercel
+# Go live — Kaizen Coastal CRM on Vercel
 
 Short path: Neon Postgres + Vercel + this repo. Local demo still uses Docker Postgres (see README).
 
@@ -9,7 +9,7 @@ Merge [PR #1](https://github.com/milo565/superbplumbingCRM/pull/1) into `main`, 
 ## 2. Create Postgres (Neon)
 
 1. Open [https://console.neon.tech](https://console.neon.tech) and sign in.
-2. **New project** → name `superbflow-crm` → region close to Melbourne (e.g. **AWS Asia Pacific (Sydney)** `ap-southeast-2`) → Postgres 16 → **Create**.
+2. **New project** → name `kaizen-coastal-crm` → region close to the Gold Coast (e.g. **AWS Asia Pacific (Sydney)** `ap-southeast-2`) → Postgres 16 → **Create**.
 3. Open **Dashboard → Connection details**.
 4. Copy the **direct** (unpooled) connection string. It looks like:
 
@@ -34,7 +34,7 @@ In Vercel → Project → **Settings → Environment Variables**, add at least P
 | Name | Example / notes |
 | --- | --- |
 | `DATABASE_URL` | Neon unpooled string from step 2 |
-| `NEXTAUTH_URL` | `https://your-app.vercel.app` first, then `https://crm.superbflowplumbing.com.au` |
+| `NEXTAUTH_URL` | `https://your-app.vercel.app` first, then `https://crm.kaizencoastal.com.au` |
 | `NEXTAUTH_SECRET` | Long random string (`openssl rand -base64 32`). **Not** the demo value |
 | `FOLLOWUP_REQUIRE_APPROVAL` | `true` recommended |
 | `XAI_API_KEY` | Optional. In-app SuperbBOT assistant. Get a key at [console.x.ai](https://console.x.ai). Never commit it. |
@@ -63,7 +63,7 @@ npx prisma migrate deploy
 
 Or: `npx vercel env pull .env.production.local` then use that `DATABASE_URL`.
 
-**Seed (staging only).** The seed creates Melbourne demo customers and the shared password `SuperbFlow1!`. **Do not seed a live customer-facing production database** unless you immediately change every password.
+**Seed (staging only).** The seed creates Gold Coast / Northern NSW demo customers and the shared password `KaizenCoastal1!`. **Do not seed a live customer-facing production database** unless you immediately change every password.
 
 ```bash
 # Staging / empty preview only
@@ -74,14 +74,14 @@ Then sign in and change every demo user password (or skip seed and create the ow
 
 ## 7. Custom domain
 
-1. Vercel → Project → **Settings → Domains** → add `crm.superbflowplumbing.com.au`.
+1. Vercel → Project → **Settings → Domains** → add `crm.kaizencoastal.com.au`.
 2. At your DNS host, add the CNAME (or A) Vercel shows.
-3. Set `NEXTAUTH_URL=https://crm.superbflowplumbing.com.au` and redeploy.
+3. Set `NEXTAUTH_URL=https://crm.kaizencoastal.com.au` and redeploy.
 
 ## 8. Security after go-live
 
 - Rotate `NEXTAUTH_SECRET` if it was ever shared.
-- Change or delete seeded accounts. Demo password `SuperbFlow1!` is **not** for production.
+- Change or delete seeded accounts. Demo password `KaizenCoastal1!` is **not** for production.
 - Restrict who can access the Vercel project and Neon dashboard.
 - Keep follow-up SMS/email stubs until real gateways and consent checks are wired.
 - SuperbBOT drafts copy only. Staff still approve SMS/email. Do not put `XAI_API_KEY` in client env (`NEXT_PUBLIC_*`).

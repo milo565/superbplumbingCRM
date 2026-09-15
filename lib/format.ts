@@ -1,7 +1,7 @@
 import { format, parseISO } from "date-fns";
 import { formatInTimeZone, fromZonedTime, toZonedTime } from "date-fns-tz";
 
-export const TIMEZONE = "Australia/Melbourne";
+export const TIMEZONE = "Australia/Brisbane";
 
 export function formatDate(value?: Date | string | null, fallback = "—") {
   if (!value) return fallback;
@@ -56,14 +56,14 @@ export function formatAddress(parts: {
   state?: string;
   postcode: string;
 }) {
-  return `${parts.street}, ${parts.suburb} ${parts.state ?? "VIC"} ${parts.postcode}`;
+  return `${parts.street}, ${parts.suburb} ${parts.state ?? "QLD"} ${parts.postcode}`;
 }
 
-export function melbourneNow() {
+export function localNow() {
   return toZonedTime(new Date(), TIMEZONE);
 }
 
-export function startOfMelbourneDay(date = new Date()) {
+export function startOfLocalDay(date = new Date()) {
   const zoned = toZonedTime(date, TIMEZONE);
   zoned.setHours(0, 0, 0, 0);
   return zoned;
@@ -73,7 +73,7 @@ export function formatShortDate(date: Date) {
   return format(toZonedTime(date, TIMEZONE), "EEE d MMM");
 }
 
-export function melbourneDayRange(date = new Date()) {
+export function localDayRange(date = new Date()) {
   const zoned = toZonedTime(date, TIMEZONE);
   const startLocal = new Date(zoned);
   startLocal.setHours(0, 0, 0, 0);
@@ -84,3 +84,6 @@ export function melbourneDayRange(date = new Date()) {
     end: fromZonedTime(endLocal, TIMEZONE),
   };
 }
+
+/** @deprecated use localDayRange */
+export const melbourneDayRange = localDayRange;

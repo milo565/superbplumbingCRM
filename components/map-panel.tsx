@@ -133,7 +133,7 @@ export function MapPanel({
           />
           <span>
             <span className="font-semibold">Confirm this is the site.</span>{" "}
-            Next sensible step — we use this pin for the job, van directions and the customer record.
+            Next step — we use this pin for the job, van directions and the customer record.
           </span>
         </label>
       ) : null}
@@ -220,7 +220,7 @@ function AppleMapPane({ address, token }: { address: string; token?: string }) {
             <p className="text-sm text-[#3c4d5a] mt-2">{address}</p>
           </div>
           <p className="text-xs text-[#5b6b78] mt-3">
-            Opens the same Melbourne address in Apple Maps on iPhone. Optional MapKit embed
+            Opens the same Gold Coast / Northern NSW address in Apple Maps on iPhone. Optional MapKit embed
             uses <code>NEXT_PUBLIC_APPLE_MAPS_TOKEN</code>.
           </p>
         </div>

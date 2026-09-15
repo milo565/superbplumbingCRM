@@ -78,7 +78,7 @@ export async function GET(request: Request) {
   return new NextResponse(body, {
     headers: {
       "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": `attachment; filename="superbflow-${type}.csv"`,
+      "Content-Disposition": `attachment; filename="kaizen-coastal-${type}.csv"`,
     },
   });
 }

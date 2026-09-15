@@ -47,7 +47,7 @@ export default async function QuoteDetailPage({ params }: { params: Promise<{ id
             </div>
             <div className="text-right text-sm">
               <p>Valid to {formatDate(quote.validUntil)}</p>
-              <p>{COMPANY.phoneAnthony}</p>
+              <p>{COMPANY.phonePrimary}</p>
             </div>
           </div>
           <p className="text-[15px] mb-4">{quote.introduction}</p>
